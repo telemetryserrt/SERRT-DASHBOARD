@@ -43,13 +43,19 @@
             </div>
           </div>
           <div class="right-side-analytics">
-            <img class="optimal-velocity" src="img/optimal-velocity.png" />
             <div class="average-mpkW">
               <div class="overlap-group-4">
                 <div class="element-mpge">100 mpkW</div>
                 <div class="text-wrapper-6">Avg. mpkW</div>
               </div>
               <img class="sun" src="img/sun.svg" />
+            </div>
+            <div class="optimal-velocity">
+              <div class="overlap-group-4">
+                <div class="element-optvel"> <em>34</em> mph</div>
+                <div class="text-wrapper-6">Optimal Velociy</div>
+              </div>
+              <img class="sun" src="img/speedometer-svgrepo-com.svg" />
             </div>
             <div class="range">
               <div class="text-wrapper-7">188 km</div>
@@ -72,7 +78,7 @@
               <p class="element-f"><span class="span">98 </span> <span class="text-wrapper-9">°F</span></p>
             </div>
             <div class="o-v">
-              <div class="text-wrapper-10">34 mph</div>
+              <div class="text-wrapper-10"><em>34</em> mph</div>
             </div>
           </div>
           <div class="battery-charge">
@@ -150,7 +156,7 @@
       document.querySelector(".text-wrapper-10").querySelector('em').textContent = currentOptimalVelocity;
     }
 
-    function updateRangeColor() {
+    function updateRangeColor(){
       var range_bar = document.querySelector(".range-bar");
       var currentVelocity = document.querySelector(".text-wrapper-4");
       var currentVelocityNumber = parseFloat(document.querySelector(".text-wrapper-4").textContent);
@@ -177,7 +183,7 @@
         battery_ring.src = 'img/battery-ring.svg';
       } else if (currentCharge > 80) {
         battery_ring.src = 'img/battery-ring-y.svg';
-      } else {
+      } else {  
         battery_ring.src = 'img/battery-ring-r.svg';
       }
     }
