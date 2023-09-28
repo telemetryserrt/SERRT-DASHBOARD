@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="BB-dashboard">
+      <div class="div">
+        <div class="overlap">
+          <div class="overlap-group">
+            <div class="overlap-2">
+              <div class="ailiz">Ailiz &lt;3</div>
+              <div class="top-bar">
+                <div class="overlap-group-2">
+                  <div class="hour"><div class="text-wrapper">7:30</div></div>
+                  <div class="date"><div class="text-wrapper-2">09/27/2023</div></div>
+                </div>
+              </div>
+              <div class="dashboard-indicators">
+                <img class="low-beam-headlights" src="img/low-beam-headlights.svg" />
+                <div class="lights">
+                  <div class="overlap-group-3">
+                    <img class="shape" src="img/shape-1.svg" />
+                    <div class="text-wrapper-3">AUTO</div>
+                  </div>
+                </div>
+                <div class="parking-lights"><img class="img" src="img/shape.svg" /></div>
+                <img class="low-beam-headlights-2" src="img/low-beam-headlights.svg" />
+              </div>
+            </div>
+            <div class="MPH">
+              <div class="overlap-3">
+                <div class="text-wrapper-4">35</div>
+                <div class="text-wrapper-5">MPH</div>
+                <div class="o-v-bar"><img class="range-bar" src="img/range-bar.svg" /></div>
+              </div>
+            </div>
+            <div class="right-side-analytics">
+              <img class="optimal-velocity" src="img/optimal-velocity.png" />
+              <div class="average-mpkW">
+                <div class="overlap-group-4">
+                  <div class="element-mpge">100 mpkW</div>
+                  <div class="text-wrapper-6">Avg. mpkW</div>
+                </div>
+                <img class="sun" src="img/sun.svg" />
+              </div>
+              <div class="range">
+                <div class="text-wrapper-7">188 km</div>
+                <div class="text-wrapper-8">Range</div>
+                <div class="road-icon">
+                  <img class="rectangle" src="img/rectangle-97.svg" />
+                  <img class="rectangle-2" src="img/rectangle-98.svg" />
+                  <div class="rectangle-3"></div>
+                  <div class="rectangle-4"></div>
+                  <div class="rectangle-5"></div>
+                </div>
+              </div>
+            </div>
+            <img class="arrows" src="img/arrows.png" />
+          </div>
+          <img class="road" src="img/road.png" />
+          <div class="overlap-4">
+            <div class="bottom-left">
+              <div class="temperature">
+                <p class="element-f"><span class="span">98 </span> <span class="text-wrapper-9">°F</span></p>
+              </div>
+              <div class="o-v"><div class="text-wrapper-10">34 mph</div></div>
+            </div>
+            <div class="battery-charge">
+              <div class="overlap-5">
+                <div class="text-wrapper-11">Battery charge</div>
+                <img class="battery-ring" src="img/battery-ring.svg" />
+                <div class="text-wrapper-12">97%</div>
+              </div>
+              <div class="charge">
+                <div class="rectangle-6"></div>
+                <div class="rectangle-7"></div>
+                <div class="rectangle-8"></div>
+                <div class="rectangle-9"></div>
+                <div class="rectangle-10"></div>
+                <div class="rectangle-11"></div>
+                <div class="rectangle-12"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gear-selection">
+          <div class="ready">READY</div>
+          <div class="text-wrapper-13">R</div>
+          <div class="text-wrapper-14">N</div>
+          <div class="text-wrapper-15">D</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Function to update velocity (text-wrapper-4) gradually
+      function updateVelocity() {
+        var currentVelocity = parseFloat(document.querySelector(".text-wrapper-4").textContent);
+        var targetVelocity = Math.floor(Math.random() * 100); // Generate a random target velocity
+        var step = 1; // Adjust the step size for the transition speed
+
+        // Gradually transition to the target velocity
+        if (targetVelocity > currentVelocity) {
+          currentVelocity = Math.min(currentVelocity + step, targetVelocity);
+        } else if (targetVelocity < currentVelocity) {
+          currentVelocity = Math.max(currentVelocity - step, targetVelocity);
+        }
+
+        // Update the HTML element with the current velocity
+        document.querySelector(".text-wrapper-4").textContent = currentVelocity;
+      }
+
+      // Function to update battery charge (text-wrapper-12) gradually
+      function updateBatteryCharge() {
+        var currentCharge = parseInt(document.querySelector(".text-wrapper-12").textContent);
+        var step = 1; // Adjust the step size for the transition speed
+
+        // Gradually decrease the battery charge (simulate discharging)
+        if (currentCharge > 0) {
+          currentCharge = Math.max(currentCharge - step, 0);
+        }
+
+        // Update the HTML element with the current battery charge
+        document.querySelector(".text-wrapper-12").textContent = currentCharge + "%";
+      }
+
+      // Call the updateValues function initially
+      // updateVelocity();
+      // updateBatteryCharge();
+
+      // // Set intervals to update values gradually every second
+      // setInterval(updateVelocity, 1000);
+      // setInterval(updateBatteryCharge, 4000); // Change every 4 seconds for battery charge
+    </script>
+  </body>
+</html>
