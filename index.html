@@ -85,7 +85,7 @@
             <div class="overlap-5">
               <div class="text-wrapper-11">Battery charge</div>
               <img class="battery-ring" src="img/battery-ring.svg" />
-              <div class="text-wrapper-12">97%</div>
+              <div class="text-wrapper-12"><em>97</em>%</div>
             </div>
             <div class="charge">
               <div class="rectangle-6"></div>
@@ -136,7 +136,7 @@
       }
 
       // Update the HTML element with the current battery charge
-      document.querySelector(".text-wrapper-12").textContent = currentCharge + "%";
+      document.querySelector(".text-wrapper-12").querySelector("em").textContent = currentCharge;
     }
 
     function updateOptimalVelocity() {
@@ -177,11 +177,11 @@
     //TODO: Update battery color based on charge
     function updateBatteryColor() {
       var battery_ring = document.querySelector(".battery-ring");
-      var currentCharge = parseInt(document.querySelector(".text-wrapper-12").textContent);
+      var currentCharge = parseInt(document.querySelector(".text-wrapper-12").querySelector("em").textContent);
 
-      if (currentCharge > 90) {
+      if (currentCharge >= 90) {
         battery_ring.src = 'img/battery-ring.svg';
-      } else if (currentCharge > 80) {
+      } else if (currentCharge >= 80 && currentCharge < 90) {
         battery_ring.src = 'img/battery-ring-y.svg';
       } else {  
         battery_ring.src = 'img/battery-ring-r.svg';
@@ -204,6 +204,7 @@
     // Call the updateValues function initially
     updateVelocity();
     updateBatteryCharge();
+    updateBatteryColor();
     updateOptimalVelocity();
     updateRangeColor();
     updateDate();
@@ -213,6 +214,7 @@
     setInterval(updateVelocity, 1000);
     setInterval(updateRangeColor, 1000);
     setInterval(updateBatteryCharge, 4000); // Change every 4 seconds for battery charge
+    setInterval(updateBatteryColor, 4000); // Change every 4 seconds for battery charge
     setInterval(updateOptimalVelocity, 4000); // Change every 4 seconds for optimal velocity
   </script>
 </body>
