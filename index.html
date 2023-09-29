@@ -3,6 +3,34 @@
   <head>
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="style.css" />
+    <style>
+    .gear-selection .text-wrapper-13 {
+      position: absolute;
+      top: 65px;
+      left: 155px;
+      opacity: 0.3;
+      color: #ffffff;
+      font-size: 32px;
+    }
+
+    .gear-selection .text-wrapper-14 {
+      position: absolute;
+      top: 65px;
+      left: 256px;
+      opacity: 0.3;
+      color: #ffffff;
+      font-size: 32px;
+    }
+
+    .gear-selection .text-wrapper-15 {
+      position: absolute;
+      width: 36px;
+      top: -20px;
+      left: 185px;
+      color: #ffffff;
+      font-size: 100px;
+    }
+  </style>
   </head>
   <body>
     <div class="BB-dashboard">
@@ -40,7 +68,7 @@
               <img class="optimal-velocity" src="img/optimal-velocity.png" />
               <div class="average-mpkW">
                 <div class="overlap-group-4">
-                  <div class="element-mpge">100 mpkW</div>
+                  <div class="element-mpge">60 mpkW</div>
                   <div class="text-wrapper-6">Avg. mpkW</div>
                 </div>
                 <img class="sun" src="img/sun.svg" />
@@ -87,13 +115,44 @@
         </div>
         <div class="gear-selection">
           <div class="ready">READY</div>
-          <div class="text-wrapper-13">R</div>
+          <div class="text-wrapper-13">D</div>
           <div class="text-wrapper-14">N</div>
-          <div class="text-wrapper-15">D</div>
+          <div class="text-wrapper-15">R</div>
         </div>
       </div>
     </div>
     <script>
+      // Function to toggle the main gear and update styles
+      function toggleGear(gear) {
+        const gearElements = {
+          "D": document.querySelector(".text-wrapper-13"),
+          "N": document.querySelector(".text-wrapper-14"),
+          "R": document.querySelector(".text-wrapper-15"),
+        };
+
+        // Reset the styles for all gears
+        for (const g in gearElements) {
+          gearElements[g].style.opacity = 0.3;
+          gearElements[g].style.color = "#ffffff";
+          gearElements[g].style.fontSize = "32px";
+          gearElements[g].style.top = "65px";
+          gearElements[g].style.left = (g === "D") ? "155px" : (g === "N") ? "256px" : "185px";
+        }
+
+        // Update the styles for the selected gear
+        gearElements[gear].style.opacity = 1;
+        gearElements[gear].style.color = "#ffffff";
+        gearElements[gear].style.fontSize = "100px";
+        gearElements[gear].style.top = "-20px";
+        gearElements[gear].style.left = "185px";
+      }
+
+      // Event listener for keydown events
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "D" || event.key === "N" || event.key === "R") {
+          toggleGear(event.key);
+        }
+      });
       // Function to update velocity (text-wrapper-4) gradually
       function updateVelocity() {
         var currentVelocity = parseFloat(document.querySelector(".text-wrapper-4").textContent);
@@ -126,12 +185,12 @@
       }
 
       // Call the updateValues function initially
-      // updateVelocity();
-      // updateBatteryCharge();
+      updateVelocity();
+      updateBatteryCharge();
 
-      // // Set intervals to update values gradually every second
-      // setInterval(updateVelocity, 1000);
-      // setInterval(updateBatteryCharge, 4000); // Change every 4 seconds for battery charge
+      // Set intervals to update values gradually every second
+      setInterval(updateVelocity, 1000);
+      setInterval(updateBatteryCharge, 4000); // Change every 4 seconds for battery charge
     </script>
   </body>
 </html>
