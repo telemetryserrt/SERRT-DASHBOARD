@@ -126,6 +126,8 @@
       // Track the state of arrow key toggles
       let leftArrowToggled = false;
       let rightArrowToggled = false;
+      let isBlinking = false;
+      let blinkInterval;
 
       // Function to start or stop arrow blinking based on the state
       function toggleArrowBlinking(className, toggleState) {
@@ -188,6 +190,24 @@
             parkingLights.forEach((parkingLight) => {
               parkingLight.style.display = parkingLight.style.display === "none" ? "block" : "none";
           });
+
+          // Toggle both arrows
+          const leftArrow = document.querySelector(".left-arrow");
+          const rightArrow = document.querySelector(".right-arrow");
+
+          if (!isBlinking) {
+          isBlinking = true;
+
+          blinkInterval = setInterval(() => {
+            toggleArrowBlinking(".left-arrow", true);
+            toggleArrowBlinking(".right-arrow", true);
+          });
+        } else {
+          isBlinking = false;
+          clearInterval(blinkInterval); // Stop the blinking interval
+          toggleArrowBlinking(".left-arrow", false);
+          toggleArrowBlinking(".right-arrow", false);
+        }
         } else if (event.key === "A") {
           // Toggle lights
           const lights = document.querySelectorAll(".lights");
