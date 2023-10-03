@@ -3,34 +3,6 @@
   <head>
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="style.css" />
-    <style>
-    .gear-selection .text-wrapper-13 {
-      position: absolute;
-      top: 65px;
-      left: 155px;
-      opacity: 0.3;
-      color: #ffffff;
-      font-size: 32px;
-    }
-
-    .gear-selection .text-wrapper-14 {
-      position: absolute;
-      top: 65px;
-      left: 256px;
-      opacity: 0.3;
-      color: #ffffff;
-      font-size: 32px;
-    }
-
-    .gear-selection .text-wrapper-15 {
-      position: absolute;
-      width: 36px;
-      top: -20px;
-      left: 185px;
-      color: #ffffff;
-      font-size: 100px;
-    }
-  </style>
   </head>
   <body>
     <div class="BB-dashboard">
@@ -68,7 +40,7 @@
               <img class="optimal-velocity" src="img/optimal-velocity.png" />
               <div class="average-mpkW">
                 <div class="overlap-group-4">
-                  <div class="element-mpge">60 mpkW</div>
+                  <div class="element-mpge">100 mpkW</div>
                   <div class="text-wrapper-6">Avg. mpkW</div>
                 </div>
                 <img class="sun" src="img/sun.svg" />
@@ -85,7 +57,9 @@
                 </div>
               </div>
             </div>
-            <img class="arrows" src="img/arrows.png" />
+            <!-- <img class="arrows" src="img/arrows.png" /> -->
+            <img class="left-arrow" src="img/left-arrow.svg" />
+            <img class="right-arrow" src="img/right-arrow.svg" />
           </div>
           <img class="road" src="img/road.png" />
           <div class="overlap-4">
@@ -114,45 +88,92 @@
           </div>
         </div>
         <div class="gear-selection">
-          <div class="ready">READY</div>
-          <div class="text-wrapper-13">D</div>
-          <div class="text-wrapper-14">N</div>
-          <div class="text-wrapper-15">R</div>
+        <div class="ready">READY</div>
+        <div class="text-wrapper-13" data-gear="R">R</div>
+        <div class="text-wrapper-14" data-gear="N">N</div>
+        <div class="text-wrapper-15" data-gear="D">D</div>
         </div>
       </div>
     </div>
     <script>
-      // Function to toggle the main gear and update styles
-      function toggleGear(gear) {
-        const gearElements = {
-          "D": document.querySelector(".text-wrapper-13"),
-          "N": document.querySelector(".text-wrapper-14"),
-          "R": document.querySelector(".text-wrapper-15"),
-        };
+      // Function to handle gear selection
+      function selectGear(gear) {
+        // Get all gear elements
+        const gearElements = document.querySelectorAll(".gear-selection div");
 
-        // Reset the styles for all gears
-        for (const g in gearElements) {
-          gearElements[g].style.opacity = 0.3;
-          gearElements[g].style.color = "#ffffff";
-          gearElements[g].style.fontSize = "32px";
-          gearElements[g].style.top = "65px";
-          gearElements[g].style.left = (g === "D") ? "155px" : (g === "N") ? "256px" : "185px";
+        // Remove the "selected-gear" class from all gear elements
+          gearElements.forEach((element) => {
+          element.classList.remove("selected-gear");
+        });
+
+        // Find the gear element corresponding to the selected gear and add the class
+        const selectedElement = document.querySelector(`[data-gear="${gear}"]`);
+          if (selectedElement) {
+          selectedElement.classList.add("selected-gear");
         }
-
-        // Update the styles for the selected gear
-        gearElements[gear].style.opacity = 1;
-        gearElements[gear].style.color = "#ffffff";
-        gearElements[gear].style.fontSize = "100px";
-        gearElements[gear].style.top = "-20px";
-        gearElements[gear].style.left = "185px";
       }
 
-      // Event listener for keydown events
+      // Set an initial selected gear (e.g., "N")
+      //selectGear("N");
+
+      // Keyboard event listener to toggle gears
       document.addEventListener("keydown", (event) => {
-        if (event.key === "D" || event.key === "N" || event.key === "R") {
-          toggleGear(event.key);
+        if (event.key === "R" || event.key === "N" || event.key === "D" ) {
+          selectGear(event.key);
         }
       });
+
+      // Track the state of arrow key toggles
+      let leftArrowToggled = false;
+      let rightArrowToggled = false;
+
+      // Function to start or stop arrow blinking based on the state
+      function toggleArrowBlinking(className, toggleState) {
+        const arrowElement = document.querySelector(className);
+        if (toggleState) {
+          arrowElement.classList.add("blinking");
+        } else {
+          arrowElement.classList.remove("blinking");
+        }
+      }
+
+      // Keyboard event listener to toggle arrow blinking
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          if (!leftArrowToggled) {
+            // Start blinking for left arrow
+            toggleArrowBlinking(".left-arrow", true);
+            toggleArrowBlinking(".right-arrow", false); // Stop blinking for right arrow
+            leftArrowToggled = true;
+            rightArrowToggled = false;
+          } else {
+            // Toggle blinking for left arrow
+            toggleArrowBlinking(".left-arrow", false);
+            leftArrowToggled = false;
+          }
+        } else if (event.key === "ArrowRight") {
+          if (!rightArrowToggled) {
+            // Start blinking for right arrow
+            toggleArrowBlinking(".right-arrow", true);
+            toggleArrowBlinking(".left-arrow", false); // Stop blinking for left arrow
+            rightArrowToggled = true;
+            leftArrowToggled = false;
+          } else {
+            // Toggle blinking for right arrow
+            toggleArrowBlinking(".right-arrow", false);
+            rightArrowToggled = false;
+          }
+        } else {
+          // If any other key is pressed, stop blinking for both arrows
+          if (leftArrowToggled || rightArrowToggled) {
+            toggleArrowBlinking(".left-arrow", false);
+            toggleArrowBlinking(".right-arrow", false);
+            leftArrowToggled = false;
+            rightArrowToggled = false;
+          }
+        }
+      });
+
       // Function to update velocity (text-wrapper-4) gradually
       function updateVelocity() {
         var currentVelocity = parseFloat(document.querySelector(".text-wrapper-4").textContent);
