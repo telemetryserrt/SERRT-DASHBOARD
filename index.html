@@ -18,15 +18,15 @@
                 </div>
               </div>
               <div class="dashboard-indicators">
-                <img class="low-beam-headlights" src="img/low-beam-headlights.svg" />
-                <div class="lights">
+                <img class="low-beam-headlights" src="img/low-beam-headlights.svg" style="display: none;"/>
+                <div class="lights" style="display: none;">
                   <div class="overlap-group-3">
                     <img class="shape" src="img/shape-1.svg" />
                     <div class="text-wrapper-3">AUTO</div>
                   </div>
                 </div>
-                <div class="parking-lights"><img class="img" src="img/shape.svg" /></div>
-                <img class="low-beam-headlights-2" src="img/low-beam-headlights.svg" />
+                <img class="parking-lights" src="img/shape.svg" style="display: none;"/>
+                <!-- <img class="low-beam-headlights-2" src="img/low-beam-headlights.svg" /> -->
               </div>
             </div>
             <div class="MPH">
@@ -171,6 +171,29 @@
             leftArrowToggled = false;
             rightArrowToggled = false;
           }
+        }
+      });
+
+      // Keyboard event listener to toggle lights
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "C") {
+          // Toggle low beam headlights
+          const lowBeamHeadlights = document.querySelectorAll(".low-beam-headlights");
+          lowBeamHeadlights.forEach((headlight) => {
+            headlight.style.display = headlight.style.display === "none" ? "block" : "none";
+          });
+        } else if (event.key === "I") {
+          // Toggle parking lights
+            const parkingLights = document.querySelectorAll(".parking-lights");
+            parkingLights.forEach((parkingLight) => {
+              parkingLight.style.display = parkingLight.style.display === "none" ? "block" : "none";
+          });
+        } else if (event.key === "A") {
+          // Toggle lights
+          const lights = document.querySelectorAll(".lights");
+          lights.forEach((light) => {
+            light.style.display = light.style.display === "none" ? "block" : "none";
+          });
         }
       });
 
