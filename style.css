@@ -260,7 +260,18 @@
   width: 422px;
   height: 104px;
   top: 311px;
-  left: 10px;
+  left: 0;
+}
+.BB-dashboard .element-optvel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 50px;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .BB-dashboard .average-mpkW {
