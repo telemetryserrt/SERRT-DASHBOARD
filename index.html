@@ -18,15 +18,15 @@
                 </div>
               </div>
               <div class="dashboard-indicators">
-                <img class="low-beam-headlights" src="img/low-beam-headlights.svg" />
-                <div class="lights">
+                <img class="low-beam-headlights" src="img/low-beam-headlights.svg" style="display: none;"/>
+                <div class="lights" style="display: none;">
                   <div class="overlap-group-3">
                     <img class="shape" src="img/shape-1.svg" />
                     <div class="text-wrapper-3">AUTO</div>
                   </div>
                 </div>
-                <div class="parking-lights"><img class="img" src="img/shape.svg" /></div>
-                <img class="low-beam-headlights-2" src="img/low-beam-headlights.svg" />
+                <img class="parking-lights" src="img/shape.svg" style="display: none;"/>
+                <!-- <img class="low-beam-headlights-2" src="img/low-beam-headlights.svg" /> -->
               </div>
             </div>
             <div class="MPH">
@@ -57,7 +57,9 @@
                 </div>
               </div>
             </div>
-            <img class="arrows" src="img/arrows.png" />
+            <!-- <img class="arrows" src="img/arrows.png" /> -->
+            <img class="left-arrow" src="img/left-arrow.svg" />
+            <img class="right-arrow" src="img/right-arrow.svg" />
           </div>
           <img class="road" src="img/road.png" />
           <div class="overlap-4">
@@ -86,14 +88,135 @@
           </div>
         </div>
         <div class="gear-selection">
-          <div class="ready">READY</div>
-          <div class="text-wrapper-13">R</div>
-          <div class="text-wrapper-14">N</div>
-          <div class="text-wrapper-15">D</div>
+        <div class="ready">READY</div>
+        <div class="text-wrapper-13" data-gear="R">R</div>
+        <div class="text-wrapper-14" data-gear="N">N</div>
+        <div class="text-wrapper-15" data-gear="D">D</div>
         </div>
       </div>
     </div>
     <script>
+      // Function to handle gear selection
+      function selectGear(gear) {
+        // Get all gear elements
+        const gearElements = document.querySelectorAll(".gear-selection div");
+
+        // Remove the "selected-gear" class from all gear elements
+          gearElements.forEach((element) => {
+          element.classList.remove("selected-gear");
+        });
+
+        // Find the gear element corresponding to the selected gear and add the class
+        const selectedElement = document.querySelector(`[data-gear="${gear}"]`);
+          if (selectedElement) {
+          selectedElement.classList.add("selected-gear");
+        }
+      }
+
+      // Set an initial selected gear (e.g., "N")
+      //selectGear("N");
+
+      // Keyboard event listener to toggle gears
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "R" || event.key === "N" || event.key === "D" ) {
+          selectGear(event.key);
+        }
+      });
+
+      // Track the state of arrow key toggles
+      let leftArrowToggled = false;
+      let rightArrowToggled = false;
+      let isBlinking = false;
+      let blinkInterval;
+
+      // Function to start or stop arrow blinking based on the state
+      function toggleArrowBlinking(className, toggleState) {
+        const arrowElement = document.querySelector(className);
+        if (toggleState) {
+          arrowElement.classList.add("blinking");
+        } else {
+          arrowElement.classList.remove("blinking");
+        }
+      }
+
+      // Keyboard event listener to toggle arrow blinking
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          if (!leftArrowToggled) {
+            // Start blinking for left arrow
+            toggleArrowBlinking(".left-arrow", true);
+            toggleArrowBlinking(".right-arrow", false); // Stop blinking for right arrow
+            leftArrowToggled = true;
+            rightArrowToggled = false;
+          } else {
+            // Toggle blinking for left arrow
+            toggleArrowBlinking(".left-arrow", false);
+            leftArrowToggled = false;
+          }
+        } else if (event.key === "ArrowRight") {
+          if (!rightArrowToggled) {
+            // Start blinking for right arrow
+            toggleArrowBlinking(".right-arrow", true);
+            toggleArrowBlinking(".left-arrow", false); // Stop blinking for left arrow
+            rightArrowToggled = true;
+            leftArrowToggled = false;
+          } else {
+            // Toggle blinking for right arrow
+            toggleArrowBlinking(".right-arrow", false);
+            rightArrowToggled = false;
+          }
+        } else {
+          // If any other key is pressed, stop blinking for both arrows
+          if (leftArrowToggled || rightArrowToggled) {
+            toggleArrowBlinking(".left-arrow", false);
+            toggleArrowBlinking(".right-arrow", false);
+            leftArrowToggled = false;
+            rightArrowToggled = false;
+          }
+        }
+      });
+
+      // Keyboard event listener to toggle lights
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "C") {
+          // Toggle low beam headlights
+          const lowBeamHeadlights = document.querySelectorAll(".low-beam-headlights");
+          lowBeamHeadlights.forEach((headlight) => {
+            headlight.style.display = headlight.style.display === "none" ? "block" : "none";
+          });
+        } else if (event.key === "I") {
+          // Toggle parking lights
+            const parkingLights = document.querySelectorAll(".parking-lights");
+            parkingLights.forEach((parkingLight) => {
+              parkingLight.style.display = parkingLight.style.display === "none" ? "block" : "none";
+          });
+
+          // Toggle both arrows
+          const leftArrow = document.querySelector(".left-arrow");
+          const rightArrow = document.querySelector(".right-arrow");
+
+          if (!isBlinking) {
+          isBlinking = true;
+
+          blinkInterval = setInterval(() => {
+            toggleArrowBlinking(".left-arrow", true);
+            toggleArrowBlinking(".right-arrow", true);
+          });
+        } else {
+          isBlinking = false;
+          clearInterval(blinkInterval); // Stop the blinking interval
+          toggleArrowBlinking(".left-arrow", false);
+          toggleArrowBlinking(".right-arrow", false);
+        }
+        } else if (event.key === "A") {
+          // Toggle lights
+          const lights = document.querySelectorAll(".lights");
+          lights.forEach((light) => {
+            light.style.display = light.style.display === "none" ? "block" : "none";
+          });
+        }
+      });
+
       // Function to update velocity (text-wrapper-4) gradually
       function updateVelocity() {
         var currentVelocity = parseFloat(document.querySelector(".text-wrapper-4").textContent);
