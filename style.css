@@ -320,6 +320,16 @@
   height: 100px;
   top: 0;
   left: 0;
+  animation: spin 8s linear infinite; /* Apply the spin animation */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .BB-dashboard .range {
@@ -408,13 +418,48 @@
   border-radius: 3px;
 }
 
-.BB-dashboard .arrows {
+/* .BB-dashboard .arrows {
   position: absolute;
   width: 230px;
   height: 60px;
   top: 141px;
   left: 740px;
-}
+} */
+
+/* Left Arrow */
+.BB-dashboard .left-arrow {
+  position: absolute;
+  width: 80px;
+  height: 60px;
+  left: 670px;
+  top: 141px;
+  }
+
+  /* Right Arrow */
+  .BB-dashboard .right-arrow {
+  position: absolute;
+  width: 80px;
+  height: 60px;
+  left: 960px;
+  top: 141px;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 1; /* Fully visible */
+    }
+    50% {
+      opacity: 0; /* Fully transparent */
+    }
+    100% {
+      opacity: 1; /* Fully visible */
+    }
+  }
+  
+  .blinking {
+    animation: blink 0.5s infinite; /* Apply the blink animation infinitely */
+  }
+  
 
 .BB-dashboard .road {
   position: absolute;
@@ -682,4 +727,20 @@
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+}
+
+.BB-dashboard .selected-gear {
+  opacity: 1;
+  color: #ffffff;
+  font-size: 100px;
+  left: 185px;
+  top: -20px;
+}
+
+.BB-dashboard .unselected-gear {
+  opacity: 0.3;
+  color: #ffffff;
+  font-size: 32px;
+  left: 155px;
+  top: 65px;
 }
