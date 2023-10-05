@@ -256,12 +256,24 @@
 }
 
 .BB-dashboard .optimal-velocity {
-  position: absolute;
-  width: 422px;
-  height: 104px;
-  top: 311px;
-  left: 10px;
-}
+    position: absolute;
+    width: 422px;
+    height: 104px;
+    top: 311px;
+    left: 0;
+  }
+
+.BB-dashboard .element-optvel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "Inter", Helvetica;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 50px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
 
 .BB-dashboard .average-mpkW {
   position: absolute;
@@ -301,6 +313,14 @@
   font-size: 36px;
   letter-spacing: 0;
   line-height: normal;
+}
+
+.BB-dashboard .speedometer {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  left: 0;
 }
 
 .BB-dashboard .sun {
