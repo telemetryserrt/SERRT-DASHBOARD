@@ -110,32 +110,58 @@
     </div>
   </div>
   <script>
-      // Function to handle gear selection
-      function selectGear(gear) {
-        // Get all gear elements
-        const gearElements = document.querySelectorAll(".gear-selection div");
+    // Create a variable to store the main gear
+    let mainGear = "D";
 
-        // Remove the "selected-gear" class from all gear elements
-          gearElements.forEach((element) => {
-          element.classList.remove("selected-gear");
-        });
+    // Function to switch properties between gears
+    function switchProperties(gear) {
+      // Get the main and selected gear elements
+      const mainElement = document.querySelector(`[data-gear="${mainGear}"]`);
+      const selectedElement = document.querySelector(`[data-gear="${gear}"]`);
 
-        // Find the gear element corresponding to the selected gear and add the class
-        const selectedElement = document.querySelector(`[data-gear="${gear}"]`);
-          if (selectedElement) {
-          selectedElement.classList.add("selected-gear");
-        }
+      // Store the styles of the main gear
+      const mainStyles = {
+        position: getComputedStyle(mainElement).getPropertyValue("position"),
+        fontSize: getComputedStyle(mainElement).getPropertyValue("font-size"),
+        opacity: getComputedStyle(mainElement).getPropertyValue("opacity"),
+        left: getComputedStyle(mainElement).getPropertyValue("left"),
+        top: getComputedStyle(mainElement).getPropertyValue("top"),
+      };
+
+      // Store the styles of the selected gear
+      const selectedStyles = {
+        position: getComputedStyle(selectedElement).getPropertyValue("position"),
+        fontSize: getComputedStyle(selectedElement).getPropertyValue("font-size"),
+        opacity: getComputedStyle(selectedElement).getPropertyValue("opacity"),
+        left: getComputedStyle(selectedElement).getPropertyValue("left"),
+        top: getComputedStyle(selectedElement).getPropertyValue("top"),
+      };
+
+      // Apply the styles of the selected gear to the main gear
+      mainElement.style.position = selectedStyles.position;
+      mainElement.style.fontSize = selectedStyles.fontSize;
+      mainElement.style.opacity = selectedStyles.opacity;
+      mainElement.style.left = selectedStyles.left;
+      mainElement.style.top = selectedStyles.top;
+
+      // Apply the styles of the main gear to the selected gear
+      selectedElement.style.position = mainStyles.position;
+      selectedElement.style.fontSize = mainStyles.fontSize;
+      selectedElement.style.opacity = mainStyles.opacity;
+      selectedElement.style.left = mainStyles.left;
+      selectedElement.style.top = mainStyles.top;
+
+      // Update the main gear variable
+      mainGear = gear;
+    }
+
+    // Keyboard event listener to toggle gears
+    document.addEventListener("keydown", (event) => {
+      const key = event.key.toUpperCase();
+      if (key === "R" || key === "N" || key === "D") {
+        switchProperties(key);
       }
-
-      // Set an initial selected gear (e.g., "N")
-      //selectGear("N");
-
-      // Keyboard event listener to toggle gears
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "R" || event.key === "N" || event.key === "D" ) {
-          selectGear(event.key);
-        }
-      });
+    });
 
       // Track the state of arrow key toggles
       let leftArrowToggled = false;
