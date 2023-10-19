@@ -58,7 +58,7 @@
               <img class="speedometer" src="img/speedometer-svgrepo-com.svg" />
             </div>
             <div class="range">
-              <div class="text-wrapper-7">188 km</div>
+              <div class="text-wrapper-7">188 mi</div>
               <div class="text-wrapper-8">Range</div>
               <div class="road-icon">
                 <img class="rectangle" src="img/rectangle-97.svg" />
@@ -361,10 +361,9 @@
       setInterval(updateDate, 1000);
       setInterval(updateVelocity, 1000);
       setInterval(updateRangeColor, 1000);
-      setInterval(updateBatteryCharge, 1000); // Change every 4 seconds for battery charge
-      setInterval(updateBatteryColor, 4000); // Change every 4 seconds for battery charge
+      setInterval(updateBatteryCharge, 2000); // Change every 4 seconds for battery charge
+      setInterval(updateBatteryColor, 10000); // Change every 4 seconds for battery charge
       setInterval(updateOptimalVelocity, 4000); // Change every 4 seconds for optimal velocity
   </script>
 </body>
-
 </html>
