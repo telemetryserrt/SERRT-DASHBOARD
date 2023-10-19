@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 # Define GPIO pin
-GPIO_PIN = 17  # Change this to your GPIO pin
+GPIO_PIN = 27  # Change this to your GPIO pin
 
 # Constants for calculation
 PULSES_PER_ROTATION = 48
