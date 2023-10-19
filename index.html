@@ -257,22 +257,35 @@
         }
       });
 
-      // Function to update velocity (text-wrapper-4) gradually
-      function updateVelocity() {
-        var currentVelocity = parseFloat(document.querySelector(".text-wrapper-4").textContent);
-        var targetVelocity = Math.floor(Math.random() * 100); // Generate a random target velocity
-        var step = 1; // Adjust the step size for the transition speed
+      // // Function to update velocity (text-wrapper-4) gradually
+      // function updateVelocity() {
+      //   var currentVelocity = parseFloat(document.querySelector(".text-wrapper-4").textContent);
+      //   var targetVelocity = Math.floor(Math.random() * 100); // Generate a random target velocity
+      //   var step = 1; // Adjust the step size for the transition speed
 
-        // Gradually transition to the target velocity
-        if (targetVelocity > currentVelocity) {
-          currentVelocity = Math.min(currentVelocity + step, targetVelocity);
-        } else if (targetVelocity < currentVelocity) {
-          currentVelocity = Math.max(currentVelocity - step, targetVelocity);
-        }
+      //   // Gradually transition to the target velocity
+      //   if (targetVelocity > currentVelocity) {
+      //     currentVelocity = Math.min(currentVelocity + step, targetVelocity);
+      //   } else if (targetVelocity < currentVelocity) {
+      //     currentVelocity = Math.max(currentVelocity - step, targetVelocity);
+      //   }
 
-        // Update the HTML element with the current velocity
-        document.querySelector(".text-wrapper-4").textContent = currentVelocity;
+      //   // Update the HTML element with the current velocity
+      //   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
+      // }
+
+      function updateVelocity(){
+        const { exec } = require('child_process');
+
+        // Run the Python script
+        exec('python myscript.py', (error, stdout, stderr) => {
+          if (error) {
+            console.error(`Error: ${error}`);
+            return;
+          }
+        });
       }
+
 
       // Function to update battery charge (text-wrapper-12) gradually
       function updateBatteryCharge() {
