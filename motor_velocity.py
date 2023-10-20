@@ -25,7 +25,7 @@ try:
 
         # Calculate time elapsed
         end_time = time.time()
-        # elapsed_time = end_time - start_time
+        elapsed_time = end_time - start_time
 
         # Reset the count and time if a second has passed
         if elapsed_time >= 1.0:
