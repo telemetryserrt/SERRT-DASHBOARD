@@ -279,6 +279,10 @@
 
         // Run the Python script
         exec('python myscript.py', (error, stdout, stderr) => {
+          if(stdout){
+            // Update the HTML element with the current velocity
+            document.querySelector(".text-wrapper-4").textContent = stdout;
+          }
           if (error) {
             console.error(`Error: ${error}`);
             return;
@@ -372,7 +376,7 @@
 
       // Set intervals to update values gradually every second
       setInterval(updateDate, 1000);
-      setInterval(updateVelocity, 1000);
+      setInterval(updateVelocity, 500); // Change every 0.5 seconds for velocity
       setInterval(updateRangeColor, 1000);
       setInterval(updateBatteryCharge, 2000); // Change every 4 seconds for battery charge
       setInterval(updateBatteryColor, 10000); // Change every 4 seconds for battery charge
