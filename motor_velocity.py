@@ -29,7 +29,7 @@ try:
 
         # Reset the count and time if a second has passed
         if elapsed_time >= 1.0:
-            speed_mph = (pulse_count / PULSES_PER_ROTATION) * (2 * 3.14159 * WHEEL_RADIUS_M) / elapsed_time * METERS_TO_MILES
+            speed_mph = (pulse_count / PULSES_PER_ROTATION) * (WHEEL_RADIUS_M) * METERS_TO_MILES
             print(f"Speed: {speed_mph:.2f} mph")
 
             pulse_count = 0
