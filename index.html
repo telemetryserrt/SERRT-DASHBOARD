@@ -319,7 +319,7 @@ Gpio.on('change', (channel, value) => {
       const speed_mph = (pulse_count / PULSES_PER_ROTATION) * WHEEL_RADIUS_M;
       console.log(`Speed: ${speed_mph.toFixed(2)} mph`);
       // Update the HTML element with the current velocity
-      document.querySelector(".text-wrapper-4").textContent = ${speed_mph.toFixed(2)};
+      document.querySelector(".text-wrapper-4").textContent = speed_mph.toFixed(2);
 
       pulse_count = 0;
       start_time = Date.now() / 1000;
