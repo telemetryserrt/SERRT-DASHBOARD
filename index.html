@@ -37,7 +37,7 @@
           </div>
           <div class="MPH">
             <div class="overlap-3">
-              <div class="text-wrapper-4">${speed_mph.toFixed(2)}</div>
+              <div class="text-wrapper-4">0.0</div>
               <div class="text-wrapper-5">MPH</div>
               <div class="o-v-bar"><img class="range-bar" src="img/range-bar.svg" /></div>
             </div>
@@ -288,6 +288,15 @@
       //     }
       //   });
       // }
+
+    // Function to update the velocity (text-wrapper-4)
+    function updateVelocity(speed) {
+      const velocityElement = document.querySelector(".text-wrapper-4");
+      if (velocityElement) {
+        velocityElement.textContent = speed.toFixed(2); // Update the velocity
+      }
+    }
+    
 const Gpio = require('rpi-gpio');
 const PULSES_PER_ROTATION = 48;
 const WHEEL_RADIUS_M = 0.24;
@@ -405,7 +414,7 @@ process.on('SIGINT', () => {
 
 
       // Call the updateValues function initially
-      updateVelocity();
+      updateVelocity(0.00);
       updateBatteryCharge();
       updateBatteryColor();
       updateOptimalVelocity();
@@ -414,7 +423,7 @@ process.on('SIGINT', () => {
 
       // Set intervals to update values gradually every second
       setInterval(updateDate, 1000);
-      setInterval(updateVelocity, 1000); // Change every second for velocity
+      //setInterval(updateVelocity, 1000); // Change every second for velocity
       setInterval(updateRangeColor, 1000);
       setInterval(updateBatteryCharge, 2000); // Change every 4 seconds for battery charge
       setInterval(updateBatteryColor, 10000); // Change every 4 seconds for battery charge
