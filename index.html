@@ -274,20 +274,59 @@
       //   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
       // }
 
-      function updateVelocity() {
-        const { exec } = require('child_process');
+      // function updateVelocity() {
+      //   const { exec } = require('child_process');
 
-        // Run the Python script
-        exec('python myscript.py', (error, stdout, stderr) => {
-          if(stdout){
-            // Update the HTML element with the current velocity
-            document.querySelector(".text-wrapper-4").textContent = stdout;
-          }
-          if (error) {
-            console.error(`Error: ${error}`);
-          }
-        });
-      }
+      //   // Run the Python script
+      //   exec('python myscript.py', (error, stdout, stderr) => {
+      //     if(stdout){
+      //       // Update the HTML element with the current velocity
+      //       document.querySelector(".text-wrapper-4").textContent = stdout;
+      //     }
+      //     if (error) {
+      //       console.error(`Error: ${error}`);
+      //     }
+      //   });
+      // }
+const Gpio = require('rpi-gpio');
+const PULSES_PER_ROTATION = 48;
+const WHEEL_RADIUS_M = 0.24;
+
+const GPIO_PIN = 27; // Change this to your GPIO pin
+
+let pulse_count = 0;
+let start_time = Date.now() / 1000;
+
+Gpio.setup(GPIO_PIN, Gpio.IN, Gpio.PUD_UP);
+
+Gpio.on('change', (channel, value) => {
+  if (value === true) {
+    pulse_count++;
+
+    const end_time = Date.now() / 1000;
+    const elapsed_time = end_time - start_time;
+
+    if (elapsed_time >= 1.0) {
+      const speed_mph = (pulse_count / PULSES_PER_ROTATION) * WHEEL_RADIUS_M;
+      console.log(`Speed: ${speed_mph.toFixed(2)} mph`);
+      // Update the HTML element with the current velocity
+      document.querySelector(".text-wrapper-4").textContent = ${speed_mph.toFixed(2)};
+
+      pulse_count = 0;
+      start_time = Date.now() / 1000;
+    }
+  }
+});
+
+console.log('Speed measurement started. Press Ctrl+C to stop.');
+
+process.on('SIGINT', () => {
+  console.log('Measurement stopped by user.');
+  Gpio.destroy(() => {
+    console.log('GPIO pins cleaned up.');
+    process.exit();
+  });
+});
 
 
       // Function to update battery charge (text-wrapper-12) gradually
