@@ -274,7 +274,7 @@
       //   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
       // }
 
-      function updateVelocity(){
+      function updateVelocity() {
         const { exec } = require('child_process');
 
         // Run the Python script
@@ -285,7 +285,6 @@
           }
           if (error) {
             console.error(`Error: ${error}`);
-            return;
           }
         });
       }
