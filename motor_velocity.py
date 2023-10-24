@@ -18,22 +18,22 @@ pulse_count = 0
 start_time = time.time()
 
 try:
-    while True:
-        # Wait for a rising edge
-        GPIO.wait_for_edge(GPIO_PIN, GPIO.RISING)
-        pulse_count += 1
+    # while True:
+    # Wait for a rising edge
+    GPIO.wait_for_edge(GPIO_PIN, GPIO.RISING)
+    pulse_count += 1
 
-        # Calculate time elapsed
-        end_time = time.time()
-        elapsed_time = end_time - start_time
+    # Calculate time elapsed
+    end_time = time.time()
+    elapsed_time = end_time - start_time
 
-        # Reset the count and time if a second has passed
-        if elapsed_time >= 1.0:
-            speed_mph = (pulse_count / PULSES_PER_ROTATION) * (WHEEL_RADIUS_M)
-            print(f"Speed: {speed_mph:.2f} mph")
+    # Reset the count and time if a second has passed
+    if elapsed_time >= 1.0:
+        speed_mph = (pulse_count / PULSES_PER_ROTATION) * (WHEEL_RADIUS_M)
+        print(f"Speed: {speed_mph:.2f} mph")
 
-            pulse_count = 0
-            start_time = time.time()
+        pulse_count = 0
+        start_time = time.time()
 
 except KeyboardInterrupt:
     print("Measurement stopped by user")
