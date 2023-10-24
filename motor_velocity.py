@@ -1,6 +1,9 @@
 import RPi.GPIO as GPIO
 import time
 
+# Define GPIO pin
+GPIO_PIN = 27  # Change this to your GPIO pin
+
 # Constants for calculation
 PULSES_PER_ROTATION = 48
 WHEEL_RADIUS_M = 0.24
@@ -14,8 +17,8 @@ GPIO.setup(GPIO_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 pulse_count = 0
 start_time = time.time()
 
-while True:
-    try:
+try:
+    while True:
         # Wait for a rising edge
         GPIO.wait_for_edge(GPIO_PIN, GPIO.RISING)
         pulse_count += 1
@@ -26,18 +29,14 @@ while True:
 
         # Reset the count and time if a second has passed
         if elapsed_time >= 1.0:
-            speed_mph = (pulse_count / PULSES_PER_ROTATION) * WHEEL_RADIUS_M
-            velocity = (
-                speed_mph * METERS_TO_MILES * 1609.34
-            )  # convert to meters per second
-
-            return str(velocity)  # Return the velocity as a string
+            speed_mph = (pulse_count / PULSES_PER_ROTATION) * (WHEEL_RADIUS_M)
+            print(f"Speed: {speed_mph:.2f} mph")
 
             pulse_count = 0
             start_time = time.time()
 
-    except KeyboardInterrupt:
-        print("Measurement stopped by the user")
+except KeyboardInterrupt:
+    print("Measurement stopped by user")
 
-    finally:
-        GPIO.cleanup()
+finally:
+    GPIO.cleanup()
