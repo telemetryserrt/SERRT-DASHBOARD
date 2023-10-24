@@ -273,13 +273,13 @@
       //   // Update the HTML element with the current velocity
       //   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
       // }
-
-      async function updateVelocityFromPython() {
+// Function to update velocity from the Flask route
+async function updateVelocityFromPython() {
   try {
-    const response = await fetch('motor_velocity.py'); // Use the relative URL to the Python script
+    const response = await fetch('/get_velocity');  // Use the route URL
     if (response.ok) {
-      const velocity = await response.text(); // Assuming the Python script returns a plain text response
-      document.getElementById('velocity').textContent = velocity; // Update the HTML element
+      const velocity = await response.text();  // Assuming the Flask route returns a plain text response
+      document.getElementById('velocity').textContent = velocity;  // Update the HTML element with the velocity
     } else {
       console.error('Failed to retrieve motor velocity data');
     }
