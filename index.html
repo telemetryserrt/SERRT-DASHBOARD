@@ -37,7 +37,7 @@
           </div>
           <div class="MPH">
             <div class="overlap-3">
-              <div class="text-wrapper-4">0</div>
+              <div class="text-wrapper-4" id="velocity">0.00</div>
               <div class="text-wrapper-5">MPH</div>
               <div class="o-v-bar"><img class="range-bar" src="img/range-bar.svg" /></div>
             </div>
@@ -274,24 +274,24 @@
       //   // Update the HTML element with the current velocity
       //   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
       // }
+// Function to update velocity from the Flask route
+// async function updateVelocityFromPython() {
+//   try {
+//     const response = await fetch('/get_velocity');  // Use the route URL
+//     if (response.ok) {
+//       const velocity = await response.text();  // Assuming the Flask route returns a plain text response
+//       document.getElementById('velocity').textContent = velocity;  // Update the HTML element with the velocity
+//     } else {
+//       console.error('Failed to retrieve motor velocity data');
+//     }
+//   } catch (error) {
+//     console.error('An error occurred:', error);
+//   }
+// }
 
-      // const { exec } = require('child_process');
-      
-      // function updateVelocity() {
-      //   // Run the Python script
-      //   exec('python myscript.py', (error, stdout, stderr) => {
-      //     if(stdout){
-      //       // Update the HTML element with the current velocity
-      //       document.querySelector(".text-wrapper-4").textContent = stdout;
-      //     }
-      //     if (error) {
-      //       console.error(`Error: ${error}`);
-      //     }
-      //   });
-      // };
-
-      import updateVelocity from './motor_velocity.js';
-
+// Call the function to update velocity initially and at regular intervals
+// updateVelocityFromPython();
+// setInterval(updateVelocityFromPython, 1000);
 //     // Function to update the velocity (text-wrapper-4)
 //     function updateVelocity(speed) {
 //       const velocityElement = document.querySelector(".text-wrapper-4");
