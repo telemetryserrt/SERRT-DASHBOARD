@@ -109,6 +109,7 @@
       </div>
     </div>
   </div>
+  <script type="module" src="motor_velocity.js"></script>
   <script>
     // Create a variable to store the main gear
     let mainGear = "D";
@@ -274,20 +275,22 @@
       //   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
       // }
 
-      const { exec } = require('child_process');
+      // const { exec } = require('child_process');
       
-      function updateVelocity() {
-        // Run the Python script
-        exec('python myscript.py', (error, stdout, stderr) => {
-          if(stdout){
-            // Update the HTML element with the current velocity
-            document.querySelector(".text-wrapper-4").textContent = stdout;
-          }
-          if (error) {
-            console.error(`Error: ${error}`);
-          }
-        });
-      };
+      // function updateVelocity() {
+      //   // Run the Python script
+      //   exec('python myscript.py', (error, stdout, stderr) => {
+      //     if(stdout){
+      //       // Update the HTML element with the current velocity
+      //       document.querySelector(".text-wrapper-4").textContent = stdout;
+      //     }
+      //     if (error) {
+      //       console.error(`Error: ${error}`);
+      //     }
+      //   });
+      // };
+
+      import updateVelocity from './motor_velocity.js';
 
 //     // Function to update the velocity (text-wrapper-4)
 //     function updateVelocity(speed) {

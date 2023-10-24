@@ -35,8 +35,8 @@ try:
         pulse_count = 0
         start_time = time.time()
 
-except KeyboardInterrupt:
-    print("Measurement stopped by user")
+except Exception as e:
+    print("error: ", e)
 
 finally:
     GPIO.cleanup()
