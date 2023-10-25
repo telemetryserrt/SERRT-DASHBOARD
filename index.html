@@ -274,28 +274,21 @@
     //   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
     // }
 
-    // function updateVelocity() {
-    //   const { exec } = require('child_process');
-    //   // Run the Python script
-    //   exec('python motor_velocity.py', (error, stdout, stderr) => {
-    //     if (stdout) {
-    //       // Update the HTML element with the current velocity
-    //       document.querySelector(".text-wrapper-4").textContent = stdout;
-    //     }
-    //     if (stderr) {
-    //       console.error(`stderr: ${stderr}`);
-    //     }
-    //     if (error) {
-    //       console.error(`Error: ${error}`);
-    //     }
-    //   });
-    // };
-
-    const mphValue = document.getElementById('velocity'); // Use 'velocity' as the ID
-    const socket = new WebSocket("ws://136.145.230.109:5678");
-
-    socket.onmessage = function (event) {
-        mphValue.textContent = event.data;
+    function updateVelocity() {
+      const { exec } = require('child_process');
+      // Run the Python script
+      exec('python motor_velocity.py', (error, stdout, stderr) => {
+        if (stdout) {
+          // Update the HTML element with the current velocity
+          document.querySelector(".text-wrapper-4").textContent = stdout;
+        }
+        if (stderr) {
+          console.error(`stderr: ${stderr}`);
+        }
+        if (error) {
+          console.error(`Error: ${error}`);
+        }
+      });
     };
 
     // Function to update battery charge (text-wrapper-12) gradually
