@@ -31,7 +31,7 @@ while True:
                 speed_mph * METERS_TO_MILES * 1609.34
             )  # convert to meters per second
 
-            return str(velocity)  # Return the velocity as a string
+            print str(velocity)  # Return the velocity as a string
 
             pulse_count = 0
             start_time = time.time()
