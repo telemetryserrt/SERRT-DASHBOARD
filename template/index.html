@@ -4,6 +4,8 @@
 <head>
   <link rel="stylesheet" href="globals.css" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
 
 <body>
@@ -109,6 +111,80 @@
       </div>
     </div>
   </div>
+  <py-script>
+        import asyncio, gpiozero
+        from gpiozero import LED, Button
+        from time import time, sleep
+
+        # Pin definitions
+        ledPos = LED(6)
+        ledNeg = LED(22)
+        hallSensor = Button(26)  # Pin to which the hall effect sensor is connected
+
+        # Variables
+        val = 0
+        startTime = 0
+        endTime = 0
+        blueLedTriggered = False
+        triggerCount = 0  # Count of triggers
+
+        XPos = 50
+        XNeg = 13
+        wheelRadius = 23.495  # wheel radius in centimeters
+        circumference = 2 * 3.141592653589793 * wheelRadius  # wheel circumference in centimeters
+        cmToMiles = 160934  # conversion factor from cm to miles
+        triggersPerRotation = 16  # Number of triggers for one full rotation
+
+        # Function to calculate and print speed
+        def calculate_speed():
+            global triggerCount, startTime, endTime
+            if triggerCount == triggersPerRotation:
+                endTime = time()  # Get the current time in seconds
+                timeDiff = (endTime - startTime) / 3600  # Convert time to hours
+                speedCmPerSec = (circumference / cmToMiles) / timeDiff  # Speed = distance/time
+                speedMilesPerHour = speedCmPerSec  # Convert cm/s to miles/hour
+                print(f"Speed (mph) = {speedMilesPerHour:.10f}")
+                triggerCount = 0  # Reset trigger count for the next rotation
+                startTime = endTime  # Reset the start time
+
+        # Hall sensor event handlers
+        def hall_triggered():
+            global blueLedTriggered, triggerCount
+            ledPos.on()
+            ledNeg.off()
+            if not blueLedTriggered:  # Start measuring time when triggered
+                blueLedTriggered = True
+                triggerCount += 1  # Increment trigger count
+
+        def hall_not_triggered():
+            global blueLedTriggered
+            ledNeg.on()
+            ledPos.off()
+            if blueLedTriggered:  # Stop measuring when no longer triggered
+                blueLedTriggered = False
+                calculate_speed()
+
+        # Assign event handlers
+        hallSensor.when_pressed = hall_triggered
+        hallSensor.when_released = hall_not_triggered
+        
+        async def update_speed():
+            while True:
+                startTime = time()  # Initialize start time
+                calculate_speed()
+                # Fetch the current speed
+                speed = speedMilesPerHour
+
+                # Update the innerHTML of the speed div using JavaScript
+                speed_div = js.document.getElementById("speed")
+                speed_div.innerHTML = str(speed)  # Set the speed as text inside the 'speed' div
+
+                # Wait for 1 second before updating again
+                await asyncio.sleep(1)
+        
+        # Start the update loop when the page loads
+        asyncio.ensure_future(update_speed())
+  </py-script>
   <script>
     // Create a variable to store the main gear
     let mainGear = "D";
