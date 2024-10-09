@@ -1,191 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <link rel="stylesheet" href="globals.css" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-</head>
-
-<body>
-  <div class="BB-dashboard">
-    <div class="div">
-      <div class="overlap">
-        <div class="overlap-group">
-          <div class="overlap-2">
-            <div class="ailiz">Ailiz &lt;3</div>
-            <div class="top-bar">
-              <div class="overlap-group-2">
-                <div class="hour">
-                  <div class="text-wrapper">7:30</div>
-                </div>
-                <div class="date">
-                  <div class="text-wrapper-2">09/27/2023</div>
-                </div>
-              </div>
-            </div>
-            <div class="dashboard-indicators">
-              <img class="low-beam-headlights" src="img/low-beam-headlights.svg" style="display: none;" />
-              <div class="lights" style="display: none;">
-                <div class="overlap-group-3">
-                  <img class="shape" src="img/shape-1.svg" />
-                  <div class="text-wrapper-3">AUTO</div>
-                </div>
-              </div>
-              <img class="parking-lights" src="img/shape.svg" style="display: none;" />
-              <!-- <img class="low-beam-headlights-2" src="img/low-beam-headlights.svg" /> -->
-            </div>
-          </div>
-          <div class="MPH">
-            <div class="overlap-3">
-              <div class="text-wrapper-4" id="velocity">0.00</div>
-              <div class="text-wrapper-5">MPH</div>
-              <div class="o-v-bar"><img class="range-bar" src="img/range-bar.svg" /></div>
-            </div>
-          </div>
-          <div class="right-side-analytics">
-            <div class="average-mpkW">
-              <div class="overlap-group-4">
-                <div class="element-mpge">100 mpkW</div>
-                <div class="text-wrapper-6">Avg. mpkW</div>
-              </div>
-              <img class="sun" src="img/sun.svg" />
-            </div>
-            <div class="optimal-velocity">
-              <div class="overlap-group-4">
-                <div class="element-optvel"> <em>34</em> mph</div>
-                <div class="text-wrapper-6">Optimal Velociy</div>
-              </div>
-              <img class="speedometer" src="img/speedometer-svgrepo-com.svg" />
-            </div>
-            <div class="range">
-              <div class="text-wrapper-7">188 mi</div>
-              <div class="text-wrapper-8">Range</div>
-              <div class="road-icon">
-                <img class="rectangle" src="img/rectangle-97.svg" />
-                <img class="rectangle-2" src="img/rectangle-98.svg" />
-                <div class="rectangle-3"></div>
-                <div class="rectangle-4"></div>
-                <div class="rectangle-5"></div>
-              </div>
-            </div>
-          </div>
-          <!-- <img class="arrows" src="img/arrows.png" /> -->
-          <img class="left-arrow" src="img/left-arrow.svg" />
-          <img class="right-arrow" src="img/right-arrow.svg" />
-        </div>
-        <img class="road" src="img/road.png" />
-        <div class="overlap-4">
-          <div class="bottom-left">
-            <div class="temperature">
-              <p class="element-f"><span class="span">98 </span> <span class="text-wrapper-9">°F</span></p>
-            </div>
-            <div class="o-v">
-              <div class="text-wrapper-10"><em>34</em> mph</div>
-            </div>
-          </div>
-          <div class="battery-charge">
-            <div class="overlap-5">
-              <div class="text-wrapper-11">Battery charge</div>
-              <img class="battery-ring" src="img/battery-ring.svg" />
-              <div class="text-wrapper-12"><em>97</em>%</div>
-            </div>
-            <div class="charge">
-              <div class="rectangle-6"></div>
-              <div class="rectangle-7"></div>
-              <div class="rectangle-8"></div>
-              <div class="rectangle-9"></div>
-              <div class="rectangle-10"></div>
-              <div class="rectangle-11"></div>
-              <div class="rectangle-12"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="gear-selection">
-        <div class="ready">READY</div>
-        <div class="text-wrapper-13" data-gear="R">R</div>
-        <div class="text-wrapper-14" data-gear="N">N</div>
-        <div class="text-wrapper-15" data-gear="D">D</div>
-      </div>
-    </div>
-  </div>
-  <py-script>
-        import asyncio, gpiozero
-        from gpiozero import LED, Button
-        from time import time, sleep
-
-        # Pin definitions
-        ledPos = LED(6)
-        ledNeg = LED(22)
-        hallSensor = Button(26)  # Pin to which the hall effect sensor is connected
-
-        # Variables
-        val = 0
-        startTime = 0
-        endTime = 0
-        blueLedTriggered = False
-        triggerCount = 0  # Count of triggers
-
-        XPos = 50
-        XNeg = 13
-        wheelRadius = 23.495  # wheel radius in centimeters
-        circumference = 2 * 3.141592653589793 * wheelRadius  # wheel circumference in centimeters
-        cmToMiles = 160934  # conversion factor from cm to miles
-        triggersPerRotation = 16  # Number of triggers for one full rotation
-
-        # Function to calculate and print speed
-        def calculate_speed():
-            global triggerCount, startTime, endTime
-            if triggerCount == triggersPerRotation:
-                endTime = time()  # Get the current time in seconds
-                timeDiff = (endTime - startTime) / 3600  # Convert time to hours
-                speedCmPerSec = (circumference / cmToMiles) / timeDiff  # Speed = distance/time
-                speedMilesPerHour = speedCmPerSec  # Convert cm/s to miles/hour
-                print(f"Speed (mph) = {speedMilesPerHour:.10f}")
-                triggerCount = 0  # Reset trigger count for the next rotation
-                startTime = endTime  # Reset the start time
-
-        # Hall sensor event handlers
-        def hall_triggered():
-            global blueLedTriggered, triggerCount
-            ledPos.on()
-            ledNeg.off()
-            if not blueLedTriggered:  # Start measuring time when triggered
-                blueLedTriggered = True
-                triggerCount += 1  # Increment trigger count
-
-        def hall_not_triggered():
-            global blueLedTriggered
-            ledNeg.on()
-            ledPos.off()
-            if blueLedTriggered:  # Stop measuring when no longer triggered
-                blueLedTriggered = False
-                calculate_speed()
-
-        # Assign event handlers
-        hallSensor.when_pressed = hall_triggered
-        hallSensor.when_released = hall_not_triggered
-        
-        async def update_speed():
-            while True:
-                startTime = time()  # Initialize start time
-                calculate_speed()
-                # Fetch the current speed
-                speed = speedMilesPerHour
-
-                # Update the innerHTML of the speed div using JavaScript
-                speed_div = js.document.getElementById("speed")
-                speed_div.innerHTML = str(speed)  # Set the speed as text inside the 'speed' div
-
-                # Wait for 1 second before updating again
-                await asyncio.sleep(1)
-        
-        # Start the update loop when the page loads
-        asyncio.ensure_future(update_speed())
-  </py-script>
-  <script>
     // Create a variable to store the main gear
     let mainGear = "D";
 
@@ -344,7 +156,7 @@
     //     currentVelocity = Math.min(currentVelocity + step, targetVelocity);
     //   } else if (targetVelocity < currentVelocity) {
     //     currentVelocity = Math.max(currentVelocity - step, targetVelocity);
-    //   }
+    //   } <link type="image/png" rel="icon" href="static/images/icon-race-car.png" />
 
     //   // Update the HTML element with the current velocity
     //   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
@@ -353,7 +165,7 @@
     function updateVelocity() {
       const { exec } = require('child_process');
       // Run the Python script
-      exec('python motor_velocity.py', (error, stdout, stderr) => {
+      exec('python main.py', (error, stdout, stderr) => {
         if (stdout) {
           // Update the HTML element with the current velocity
           document.querySelector(".text-wrapper-4").textContent = stdout;
@@ -457,7 +269,3 @@
     setInterval(updateBatteryCharge, 2000); // Change every 4 seconds for battery charge
     setInterval(updateBatteryColor, 10000); // Change every 4 seconds for battery charge
     setInterval(updateOptimalVelocity, 4000); // Change every 4 seconds for optimal velocity
-  </script>
-</body>
-
-</html>

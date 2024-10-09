@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel= "stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type= "module" src= "https://pyscript.net/releases/2024.1.1/core.js"></script>
+    
+  <style>
+  .BB-dashboard {
+  background-color: #1f1f1f;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.BB-dashboard .div {
+  background-color: #1f1f1f;
+  border: 28px solid;
+  border-color: #00ffb259;
+  width: 1920px;
+  height: 960px;
+  position: relative;
+}
+
+.BB-dashboard .overlap {
+  position: absolute;
+  width: 1671px;
+  height: 960px;
+  top: 0;
+  left: 90px;
+}
+
+.BB-dashboard .overlap-group {
+  position: absolute;
+  width: 1671px;
+  height: 723px;
+  top: 0;
+  left: 0;
+}
+
+.BB-dashboard .overlap-2 {
+  position: absolute;
+  width: 1671px;
+  height: 317px;
+  top: 0;
+  left: 0;
+}
+
+.BB-dashboard .ailiz {
+  position: absolute;
+  top: 55px;
+  left: 1542px;
+  opacity: 0.06;
+  font-family: "Inter", Helvetica;
+  font-weight: 500;
+  color: #ffffff4c;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .top-bar {
+  position: absolute;
+  width: 1357px;
+  height: 115px;
+  top: 0;
+  left: 192px;
+}
+
+.BB-dashboard .overlap-group-2 {
+  position: relative;
+  width: 1509px;
+  height: 211px;
+  left: -76px;
+  background-image: url(./static/img/bar.svg);
+  background-size: 100% 100%;
+}
+
+.BB-dashboard .hour {
+  position: absolute;
+  width: 72px;
+  height: 39px;
+  top: 38px;
+  left: 719px;
+}
+
+.BB-dashboard .text-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 32px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .date {
+  position: absolute;
+  width: 186px;
+  height: 39px;
+  top: 38px;
+  left: 1071px;
+}
+
+.BB-dashboard .text-wrapper-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 32px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .dashboard-indicators {
+  position: absolute;
+  width: 429px;
+  height: 285px;
+  top: 32px;
+  left: 0;
+}
+
+.BB-dashboard .low-beam-headlights {
+  position: absolute;
+  width: 51px;
+  height: 51px;
+  top: 234px;
+  left: 0;
+}
+
+.BB-dashboard .lights {
+  position: absolute;
+  width: 52px;
+  height: 70px;
+  top: 146px;
+  left: 25px;
+}
+
+.BB-dashboard .overlap-group-3 {
+  position: relative;
+  height: 66px;
+  top: 1px;
+}
+
+.BB-dashboard .shape {
+  position: absolute;
+  width: 52px;
+  height: 47px;
+  top: 0;
+  left: 0;
+}
+
+.BB-dashboard .text-wrapper-3 {
+  position: absolute;
+  height: 19px;
+  top: 47px;
+  left: 5px;
+  font-family: "Inter", Helvetica;
+  font-weight: 200;
+  color: #32d74b;
+  font-size: 15.6px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .parking-lights {
+  position: absolute;
+  width: 72px;
+  height: 62px;
+  top: 74px;
+  left: 74px;
+  opacity: 0.5;
+}
+
+.BB-dashboard .img {
+  position: absolute;
+  width: 66px;
+  height: 31px;
+  top: 15px;
+  left: 3px;
+}
+
+.BB-dashboard .low-beam-headlights-2 {
+  position: absolute;
+  width: 51px;
+  height: 51px;
+  top: 0;
+  left: 378px;
+}
+
+.BB-dashboard .MPH {
+  position: absolute;
+  width: 304px;
+  height: 300px;
+  top: 226px;
+  left: 720px;
+}
+
+.BB-dashboard .overlap-3 {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.BB-dashboard .text-wrapper-4 {
+  position: absolute;
+  top: 44px;
+  left: 62px;
+  text-shadow: 0px 20px 76px #00ffb21a;
+  -webkit-text-stroke: 1px #ffffff33;
+  font-family: "Inter", Helvetica;
+  font-weight: 700;
+  color: #01eb7b;
+  font-size: 134.1px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .text-wrapper-5 {
+  position: absolute;
+  top: 193px;
+  left: 96px;
+  text-shadow: 0px 20px 76px #00ffb21a;
+  -webkit-text-stroke: 1px #ffffff33;
+  font-family: "Inter", Helvetica;
+  font-weight: 500;
+  color: #ffffff4c;
+  font-size: 46.4px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .o-v-bar {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 0;
+  left: 0;
+}
+
+.BB-dashboard .range-bar {
+  position: absolute;
+  width: 300px;
+  height: 239px;
+  top: 0;
+  left: -15px;
+}
+
+.BB-dashboard .right-side-analytics {
+  position: absolute;
+  width: 432px;
+  height: 415px;
+  top: 230px;
+  left: 1182px;
+}
+
+.BB-dashboard .optimal-velocity {
+  position: absolute;
+  width: 422px;
+  height: 104px;
+  top: 311px;
+  left: 0;
+}
+
+.BB-dashboard .element-optvel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 50px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .average-mpkW {
+  position: absolute;
+  width: 400px;
+  height: 123px;
+  top: 157px;
+  left: 0;
+}
+
+.BB-dashboard .overlap-group-4 {
+  position: absolute;
+  width: 246px;
+  height: 122px;
+  top: 1px;
+  left: 150px;
+}
+
+.BB-dashboard .element-mpge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 50px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .text-wrapper-6 {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 500;
+  color: #ffffff4c;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .speedometer {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  left: 0;
+}
+
+.BB-dashboard .sun {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  left: 0;
+  animation: spin 8s linear infinite;
+  /* Apply the spin animation */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.BB-dashboard .range {
+  position: absolute;
+  width: 322px;
+  height: 109px;
+  top: 0;
+  left: 5px;
+}
+
+.BB-dashboard .text-wrapper-7 {
+  left: 145px;
+  font-weight: 500;
+  font-size: 50px;
+  position: absolute;
+  top: 0;
+  font-family: "Inter", Helvetica;
+  color: #ffffff;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .text-wrapper-8 {
+  position: absolute;
+  top: 65px;
+  left: 145px;
+  font-family: "Inter", Helvetica;
+  font-weight: 500;
+  color: #ffffff4c;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .road-icon {
+  position: absolute;
+  width: 90px;
+  height: 50px;
+  top: 31px;
+  left: 0;
+}
+
+.BB-dashboard .rectangle {
+  position: absolute;
+  width: 26px;
+  height: 50px;
+  top: 0;
+  left: 2px;
+}
+
+.BB-dashboard .rectangle-2 {
+  position: absolute;
+  width: 26px;
+  height: 50px;
+  top: 0;
+  left: 62px;
+}
+
+.BB-dashboard .rectangle-3 {
+  position: absolute;
+  width: 7px;
+  height: 10px;
+  top: 0;
+  left: 42px;
+  background-color: #e8ec25;
+  border-radius: 3px;
+}
+
+.BB-dashboard .rectangle-4 {
+  position: absolute;
+  width: 7px;
+  height: 11px;
+  top: 16px;
+  left: 42px;
+  background-color: #e8ec25;
+  border-radius: 3px;
+}
+
+.BB-dashboard .rectangle-5 {
+  position: absolute;
+  width: 7px;
+  height: 16px;
+  top: 34px;
+  left: 42px;
+  background-color: #e8ec25;
+  border-radius: 3px;
+}
+
+/* .BB-dashboard .arrows {
+  position: absolute;
+  width: 230px;
+  height: 60px;
+  top: 141px;
+  left: 740px;
+} */
+
+/* Left Arrow */
+.BB-dashboard .left-arrow {
+  position: absolute;
+  width: 80px;
+  height: 60px;
+  left: 670px;
+  top: 141px;
+}
+
+/* Right Arrow */
+.BB-dashboard .right-arrow {
+  position: absolute;
+  width: 80px;
+  height: 60px;
+  left: 960px;
+  top: 141px;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+    /* Fully visible */
+  }
+
+  50% {
+    opacity: 0;
+    /* Fully transparent */
+  }
+
+  100% {
+    opacity: 1;
+    /* Fully visible */
+  }
+}
+
+.blinking {
+  animation: blink 0.5s infinite;
+  /* Apply the blink animation infinitely */
+}
+
+
+.BB-dashboard .road {
+  position: absolute;
+  width: 375px;
+  height: 401px;
+  top: 559px;
+  left: 683px;
+}
+
+.BB-dashboard .overlap-4 {
+  position: absolute;
+  width: 496px;
+  height: 596px;
+  top: 317px;
+  left: 151px;
+}
+
+.BB-dashboard .bottom-left {
+  position: absolute;
+  width: 496px;
+  height: 43px;
+  top: 527px;
+  left: 0;
+}
+
+.BB-dashboard .temperature {
+  position: absolute;
+  width: 84px;
+  height: 39px;
+  top: 4px;
+  left: 0;
+}
+
+.BB-dashboard .element-f {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: transparent;
+  font-size: 32px;
+  text-align: right;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .span {
+  color: #ffffff;
+}
+
+.BB-dashboard .text-wrapper-9 {
+  color: #ffffff4c;
+}
+
+.BB-dashboard .o-v {
+  position: absolute;
+  width: 119px;
+  height: 39px;
+  top: 0;
+  left: 379px;
+}
+
+.BB-dashboard .text-wrapper-10 {
+  left: 0;
+  font-weight: 400;
+  font-size: 32px;
+  text-align: right;
+  position: absolute;
+  top: 0;
+  font-family: "Inter", Helvetica;
+  color: #ffffff;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .battery-charge {
+  width: 342px;
+  height: 584px;
+  left: 41px;
+  position: absolute;
+  top: 0;
+}
+
+.BB-dashboard .overlap-5 {
+  position: absolute;
+  width: 507px;
+  height: 507px;
+  top: -65px;
+  left: -84px;
+}
+
+.BB-dashboard .text-wrapper-11 {
+  position: absolute;
+  top: 270px;
+  left: 156px;
+  font-family: "Inter", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 28px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .battery-ring {
+  width: 507px;
+  height: 507px;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.BB-dashboard .text-wrapper-12 {
+  position: absolute;
+  top: 163px;
+  left: 167px;
+  font-family: "Inter", Helvetica;
+  font-weight: 300;
+  color: #ffffff;
+  font-size: 88px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .charge {
+  position: absolute;
+  width: 222px;
+  height: 15px;
+  top: 540px;
+  left: 71px;
+}
+
+.BB-dashboard .rectangle-6 {
+  position: absolute;
+  width: 15px;
+  height: 30px;
+  top: -7px;
+  left: 8px;
+  background-color: #32d74b;
+  transform: rotate(-90deg);
+  box-shadow: 0px 20px 76px #00ffb21a;
+}
+
+.BB-dashboard .rectangle-7 {
+  position: absolute;
+  width: 15px;
+  height: 30px;
+  top: -7px;
+  left: 39px;
+  background-color: #32d74b;
+  transform: rotate(-90deg);
+  box-shadow: 0px 20px 76px #00ffb21a;
+}
+
+.BB-dashboard .rectangle-8 {
+  position: absolute;
+  width: 15px;
+  height: 30px;
+  top: -7px;
+  left: 71px;
+  background-color: #32d74b;
+  transform: rotate(-90deg);
+  box-shadow: 0px 20px 76px #00ffb21a;
+}
+
+.BB-dashboard .rectangle-9 {
+  position: absolute;
+  width: 15px;
+  height: 30px;
+  top: -7px;
+  left: 103px;
+  background-color: #32d74b;
+  transform: rotate(-90deg);
+}
+
+.BB-dashboard .rectangle-10 {
+  position: absolute;
+  width: 15px;
+  height: 30px;
+  top: -7px;
+  left: 135px;
+  background-color: #32d74b;
+  transform: rotate(-90deg);
+}
+
+.BB-dashboard .rectangle-11 {
+  position: absolute;
+  width: 15px;
+  height: 30px;
+  top: -7px;
+  left: 167px;
+  background-color: #32d74b;
+  transform: rotate(-90deg);
+}
+
+.BB-dashboard .rectangle-12 {
+  position: absolute;
+  width: 15px;
+  height: 30px;
+  top: -7px;
+  left: 199px;
+  transform: rotate(-90deg);
+  background: linear-gradient(180deg, rgb(50, 215, 75) 0%, rgba(50, 215, 75, 0) 100%);
+}
+
+.BB-dashboard .gear-selection {
+  position: absolute;
+  width: 289px;
+  height: 126px;
+  top: 780px;
+  left: 1277px;
+}
+
+.BB-dashboard .ready {
+  position: absolute;
+  top: 65px;
+  left: 0;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #32d74b;
+  font-size: 32px;
+  text-align: right;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .text-wrapper-13 {
+  position: absolute;
+  top: 65px;
+  left: 155px;
+  opacity: 0.3;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 32px;
+  text-align: right;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .text-wrapper-14 {
+  position: absolute;
+  top: 65px;
+  left: 256px;
+  opacity: 0.3;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 32px;
+  text-align: right;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.BB-dashboard .text-wrapper-15 {
+  position: absolute;
+  width: 36px;
+  top: -20px;
+  left: 185px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 100px;
+  text-align: right;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.BB-dashboard .selected-gear {
+  opacity: 1;
+  color: #ffffff;
+  font-size: 100px;
+  left: 185px;
+  top: -20px;
+}
+
+.BB-dashboard .unselected-gear {
+  opacity: 0.3;
+  color: #ffffff;
+  font-size: 32px;
+  left: 155px;
+  top: 65px;
+}
+
+  </style>
+  <link type="image/png" rel="icon" href="static/images/icon-race-car.png" />
+</head>
+<body>
+  <div class="BB-dashboard">
+    <div class="div">
+      <div class="overlap">
+        <div class="overlap-group">
+          <div class="overlap-2">
+            <div class="ailiz">Ailiz &lt;3</div>
+            <div class="top-bar">
+              <div class="overlap-group-2">
+                <div class="hour">
+                  <div class="text-wrapper">7:30</div>
+                </div>
+                <div class="date">
+                  <div class="text-wrapper-2">09/27/2023</div>
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-indicators">
+              <img class="low-beam-headlights" src="static/img/low-beam-headlights.svg" style="display: none;" />
+              <div class="lights" style="display: none;">
+                <div class="overlap-group-3">
+                  <img class="shape" src="static/img/shape-1.svg" />
+                  <div class="text-wrapper-3">AUTO</div>
+                </div>
+              </div>
+              <img class="parking-lights" src="static/img/shape.svg" style="display: none;" />
+              <!-- <img class="low-beam-headlights-2" src="img/low-beam-headlights.svg" /> -->
+            </div>
+          </div>
+          <div class="MPH">
+            <div class="overlap-3">
+              <div class="text-wrapper-4" id="velocity">0</div>
+              <div class="text-wrapper-5">MPH</div>
+              <div class="o-v-bar"><img class="range-bar" src="static/img/range-bar.svg" /></div>
+            </div>
+          </div>
+          <div class="right-side-analytics">
+            <div class="average-mpkW">
+              <div class="overlap-group-4">
+                <div class="element-mpge">100 mpkW</div>
+                <div class="text-wrapper-6">Avg. mpkW</div>
+              </div>
+              <img class="sun" src="static/img/sun.svg" />
+            </div>
+            <div class="optimal-velocity">
+              <div class="overlap-group-4">
+                <div class="element-optvel"> <em>34</em> mph</div>
+                <div class="text-wrapper-6">Optimal Velociy</div>
+              </div>
+              <img class="speedometer" src="static/img/speedometer-svgrepo-com.svg" />
+            </div>
+            <div class="range">
+              <div class="text-wrapper-7">188 mi</div>
+              <div class="text-wrapper-8">Range</div>
+              <div class="road-icon">
+                <img class="rectangle" src="static/img/rectangle-97.svg" />
+                <img class="rectangle-2" src="static/img/rectangle-98.svg" />
+                <div class="rectangle-3"></div>
+                <div class="rectangle-4"></div>
+                <div class="rectangle-5"></div>
+              </div>
+            </div>
+          </div>
+          <!-- <img class="arrows" src="img/arrows.png" /> -->
+          <img class="left-arrow" src="static/img/left-arrow.svg" />
+          <img class="right-arrow" src="static/img/right-arrow.svg" />
+        </div>
+        <img class="road" src="static/img/road.png" />
+        <div class="overlap-4">
+          <div class="bottom-left">
+            <div class="temperature">
+              <p class="element-f"><span class="span">98 </span> <span class="text-wrapper-9">°F</span></p>
+            </div>
+            <div class="o-v">
+              <div class="text-wrapper-10"><em>34</em> mph</div>
+            </div>
+          </div>
+          <div class="battery-charge">
+            <div class="overlap-5">
+              <div class="text-wrapper-11">Battery charge</div>
+              <img class="battery-ring" src="static/img/battery-ring.svg" />
+              <div class="text-wrapper-12"><em>97</em>%</div>
+            </div>
+            <div class="charge">
+              <div class="rectangle-6"></div>
+              <div class="rectangle-7"></div>
+              <div class="rectangle-8"></div>
+              <div class="rectangle-9"></div>
+              <div class="rectangle-10"></div>
+              <div class="rectangle-11"></div>
+              <div class="rectangle-12"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="gear-selection">
+        <div class="ready">READY</div>
+        <div class="text-wrapper-13" data-gear="R">R</div>
+        <div class="text-wrapper-14" data-gear="N">N</div>
+        <div class="text-wrapper-15" data-gear="D">D</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Create a variable to store the main gear
+    let mainGear = "D";
+
+    // Function to switch properties between gears
+    function switchProperties(gear) {
+      // Get the main and selected gear elements
+      const mainElement = document.querySelector(`[data-gear="${mainGear}"]`);
+      const selectedElement = document.querySelector(`[data-gear="${gear}"]`);
+
+      // Store the styles of the main gear
+      const mainStyles = {
+        position: getComputedStyle(mainElement).getPropertyValue("position"),
+        fontSize: getComputedStyle(mainElement).getPropertyValue("font-size"),
+        opacity: getComputedStyle(mainElement).getPropertyValue("opacity"),
+        left: getComputedStyle(mainElement).getPropertyValue("left"),
+        top: getComputedStyle(mainElement).getPropertyValue("top"),
+      };
+
+      // Store the styles of the selected gear
+      const selectedStyles = {
+        position: getComputedStyle(selectedElement).getPropertyValue("position"),
+        fontSize: getComputedStyle(selectedElement).getPropertyValue("font-size"),
+        opacity: getComputedStyle(selectedElement).getPropertyValue("opacity"),
+        left: getComputedStyle(selectedElement).getPropertyValue("left"),
+        top: getComputedStyle(selectedElement).getPropertyValue("top"),
+      };
+
+      // Apply the styles of the selected gear to the main gear
+      mainElement.style.position = selectedStyles.position;
+      mainElement.style.fontSize = selectedStyles.fontSize;
+      mainElement.style.opacity = selectedStyles.opacity;
+      mainElement.style.left = selectedStyles.left;
+      mainElement.style.top = selectedStyles.top;
+
+      // Apply the styles of the main gear to the selected gear
+      selectedElement.style.position = mainStyles.position;
+      selectedElement.style.fontSize = mainStyles.fontSize;
+      selectedElement.style.opacity = mainStyles.opacity;
+      selectedElement.style.left = mainStyles.left;
+      selectedElement.style.top = mainStyles.top;
+
+      // Update the main gear variable
+      mainGear = gear;
+    }
+
+    // Keyboard event listener to toggle gears
+    document.addEventListener("keydown", (event) => {
+      const key = event.key.toUpperCase();
+      if (key === "R" || key === "N" || key === "D") {
+        switchProperties(key);
+      }
+    });
+
+    // Track the state of arrow key toggles
+    let leftArrowToggled = false;
+    let rightArrowToggled = false;
+    let isBlinking = false;
+    let blinkInterval;
+
+    // Function to start or stop arrow blinking based on the state
+    function toggleArrowBlinking(className, toggleState) {
+      const arrowElement = document.querySelector(className);
+      if (toggleState) {
+        arrowElement.classList.add("blinking");
+      } else {
+        arrowElement.classList.remove("blinking");
+      }
+    }
+
+    // Keyboard event listener to toggle arrow blinking
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        if (!leftArrowToggled) {
+          // Start blinking for left arrow
+          toggleArrowBlinking(".left-arrow", true);
+          toggleArrowBlinking(".right-arrow", false); // Stop blinking for right arrow
+          leftArrowToggled = true;
+          rightArrowToggled = false;
+        } else {
+          // Toggle blinking for left arrow
+          toggleArrowBlinking(".left-arrow", false);
+          leftArrowToggled = false;
+        }
+      } else if (event.key === "ArrowRight") {
+        if (!rightArrowToggled) {
+          // Start blinking for right arrow
+          toggleArrowBlinking(".right-arrow", true);
+          toggleArrowBlinking(".left-arrow", false); // Stop blinking for left arrow
+          rightArrowToggled = true;
+          leftArrowToggled = false;
+        } else {
+          // Toggle blinking for right arrow
+          toggleArrowBlinking(".right-arrow", false);
+          rightArrowToggled = false;
+        }
+      } else {
+        // If any other key is pressed, stop blinking for both arrows
+        if (leftArrowToggled || rightArrowToggled) {
+          toggleArrowBlinking(".left-arrow", false);
+          toggleArrowBlinking(".right-arrow", false);
+          leftArrowToggled = false;
+          rightArrowToggled = false;
+        }
+      }
+    });
+
+    // Keyboard event listener to toggle lights
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "C") {
+        // Toggle low beam headlights
+        const lowBeamHeadlights = document.querySelectorAll(".low-beam-headlights");
+        lowBeamHeadlights.forEach((headlight) => {
+          headlight.style.display = headlight.style.display === "none" ? "block" : "none";
+        });
+      } else if (event.key === "I") {
+        // Toggle parking lights
+        const parkingLights = document.querySelectorAll(".parking-lights");
+        parkingLights.forEach((parkingLight) => {
+          parkingLight.style.display = parkingLight.style.display === "none" ? "block" : "none";
+        });
+
+        // Toggle both arrows
+        const leftArrow = document.querySelector(".left-arrow");
+        const rightArrow = document.querySelector(".right-arrow");
+
+        if (!isBlinking) {
+          isBlinking = true;
+
+          blinkInterval = setInterval(() => {
+            toggleArrowBlinking(".left-arrow", true);
+            toggleArrowBlinking(".right-arrow", true);
+          });
+        } else {
+          isBlinking = false;
+          clearInterval(blinkInterval); // Stop the blinking interval
+          toggleArrowBlinking(".left-arrow", false);
+          toggleArrowBlinking(".right-arrow", false);
+        }
+      } else if (event.key === "A") {
+        // Toggle lights
+        const lights = document.querySelectorAll(".lights");
+        lights.forEach((light) => {
+          light.style.display = light.style.display === "none" ? "block" : "none";
+        });
+      }
+    });
+
+    // // Function to update velocity (text-wrapper-4) gradually
+    // function updateVelocity() {
+    //   var currentVelocity = parseFloat(document.querySelector(".text-wrapper-4").textContent);
+    //   var targetVelocity = Math.floor(Math.random() * 100); // Generate a random target velocity
+    //   var step = 1; // Adjust the step size for the transition speed
+
+    //   // Gradually transition to the target velocity
+    //   if (targetVelocity > currentVelocity) {
+    //     currentVelocity = Math.min(currentVelocity + step, targetVelocity);
+    //   } else if (targetVelocity < currentVelocity) {
+    //     currentVelocity = Math.max(currentVelocity - step, targetVelocity);
+    //   } <link type="image/png" rel="icon" href="static/images/icon-race-car.png" />
+
+    //   // Update the HTML element with the current velocity
+    //   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
+    // }
+
+    function updateVelocity() {
+      fetch('/speed').then(response => response.json()).then(data => {
+        document.getElementById("velocity").innerText = data.speed;
+      }).catch(error => console.error(error));
+    };
+
+    // Function to update battery charge (text-wrapper-12) gradually
+    function updateBatteryCharge() {
+      var currentCharge = parseInt(document.querySelector(".text-wrapper-12").textContent);
+      var step = 1; // Adjust the step size for the transition speed
+
+      // Gradually decrease the battery charge (simulate discharging)
+      if (currentCharge > 0) {
+        currentCharge = Math.max(currentCharge - step, 0);
+      }
+
+      // Update the HTML element with the current battery charge
+      document.querySelector(".text-wrapper-12").querySelector("em").textContent = currentCharge;
+    }
+
+    function updateDate() {
+      var date = new Date();
+      var hour = date.getHours();
+      var minute = date.getMinutes();
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var year = date.getFullYear();
+
+      document.querySelector(".text-wrapper").textContent = hour + ":" + minute;
+      document.querySelector(".text-wrapper-2").textContent = month + "/" + day + "/" + year;
+    };
+
+    function updateBatteryColor() {
+      var battery_ring = document.querySelector(".battery-ring");
+      var currentCharge = parseInt(document.querySelector(".text-wrapper-12").querySelector("em").textContent);
+
+      if (currentCharge >= 90) {
+        battery_ring.src = 'static/img/battery-ring.svg';
+      } else if (currentCharge >= 80 && currentCharge < 90) {
+        battery_ring.src = 'static/img/battery-ring-y.svg';
+      } else {
+        battery_ring.src = 'static/img/battery-ring-r.svg';
+      }
+    };
+
+    function updateRangeColor() {
+      var range_bar = document.querySelector(".range-bar");
+      var currentVelocity = document.querySelector(".text-wrapper-4");
+      var currentVelocityNumber = parseFloat(document.querySelector(".text-wrapper-4").textContent);
+      var currentOptimalVelocity = parseFloat(document.querySelector(".element-optvel").querySelector("em").textContent);
+
+      if (currentVelocityNumber > currentOptimalVelocity + 5 || currentVelocityNumber < currentOptimalVelocity - 5) {
+        range_bar.src = 'static/img/range-bar-r.svg'
+        currentVelocity.style.color = '#ea0000';
+      } else if (currentVelocityNumber > currentOptimalVelocity + 3 || currentVelocityNumber < currentOptimalVelocity - 3) {
+        range_bar.src = 'static/img/range-bar-y.svg';
+        currentVelocity.style.color = '#ead700';
+      } else {
+        range_bar.src = 'static/img/range-bar.svg';
+        currentVelocity.style.color = '#01EB7B';
+      }
+    };
+
+    function updateOptimalVelocity() {
+      var currentOptimalVelocity = parseFloat(document.querySelector(".element-optvel").querySelector("em").textContent);
+      var targetOptimalVelocity = Math.floor(Math.random() * 100); // Generate a random target velocity
+      var step = 1; // Adjust the step size for the transition speed
+
+      // Gradually transition to the target velocity
+      if (targetOptimalVelocity > currentOptimalVelocity) {
+        currentOptimalVelocity = Math.min(currentOptimalVelocity + step, targetOptimalVelocity);
+      } else if (targetOptimalVelocity < currentOptimalVelocity) {
+        currentOptimalVelocity = Math.max(currentOptimalVelocity - step, targetOptimalVelocity);
+      }
+
+      // Update the HTML element with the current velocity
+      document.querySelector(".element-optvel").querySelector('em').textContent = currentOptimalVelocity;
+      document.querySelector(".text-wrapper-10").querySelector('em').textContent = currentOptimalVelocity;
+    };
+
+
+    // Call the updateValues function initially
+    updateVelocity();
+    updateBatteryCharge();
+    updateBatteryColor();
+    updateOptimalVelocity();
+    updateRangeColor();
+    updateDate();
+
+    // Set intervals to update values gradually every second
+    setInterval(updateDate, 1000);
+    setInterval(updateVelocity, 1500); // Change every second for velocity
+    setInterval(updateRangeColor, 1000);
+    setInterval(updateBatteryCharge, 2000); // Change every 4 seconds for battery charge
+    setInterval(updateBatteryColor, 10000); // Change every 4 seconds for battery charge
+    setInterval(updateOptimalVelocity, 4000); // Change every 4 seconds for optimal velocity
+  </script>
+
+</body>
+
+</html>
