@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, render_template
 from gpiozero import LED, Button
 from time import time, sleep
-import os
+from Speed import soc_extract
+import os, threading
+
 
 app = Flask(__name__)
 
@@ -59,6 +61,9 @@ def hall_not_triggered():
         blueLedTriggered = False
         calculate_speed()
 
+def getSOC():
+    return soc_extract.getSOC()
+
 # Assign event handlers
 hallSensor.when_pressed = hall_triggered
 hallSensor.when_released = hall_not_triggered
@@ -72,6 +77,11 @@ def index():
 @app.route('/speed')
 def speed():
     return jsonify(speed=round(speedMilesPerHour,1))
+
+# Route to get State Of Charge
+@app.route("/soc")
+def soc():
+    return jsonify(soc=getSOC())
 
 # Main loop
 if __name__ == "__main__":
