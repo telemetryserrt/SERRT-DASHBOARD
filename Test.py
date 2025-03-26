@@ -62,7 +62,10 @@ def hall_not_triggered():
         calculate_speed()
 
 def getSOC():
-    return soc_extract.getSOC()
+    soc_extract.login()
+    soc = soc_extract.getSOC()
+    soc_extract.exit()
+    return 
 
 # Assign event handlers
 hallSensor.when_pressed = hall_triggered

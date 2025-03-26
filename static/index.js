@@ -147,63 +147,24 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-// // Function to update velocity (text-wrapper-4) gradually
-// function updateVelocity() {
-//   var currentVelocity = parseFloat(document.querySelector(".text-wrapper-4").textContent);
-//   var targetVelocity = Math.floor(Math.random() * 100); // Generate a random target velocity
-//   var step = 1; // Adjust the step size for the transition speed
-
-//   // Gradually transition to the target velocity
-//   if (targetVelocity > currentVelocity) {
-//     currentVelocity = Math.min(currentVelocity + step, targetVelocity);
-//   } else if (targetVelocity < currentVelocity) {
-//     currentVelocity = Math.max(currentVelocity - step, targetVelocity);
-//   } <link type="image/png" rel="icon" href="static/images/icon-race-car.png" />
-
-//   // Update the HTML element with the current velocity
-//   document.querySelector(".text-wrapper-4").textContent = currentVelocity;
-// }
-
 function updateVelocity() {
-  const { exec } = require("child_process");
-  // Run the Python script
-  exec("python main.py", (error, stdout, stderr) => {
-    if (stdout) {
-      // Update the HTML element with the current velocity
-      document.querySelector(".text-wrapper-4").textContent = stdout;
-    }
-    if (stderr) {
-      console.error(`stderr: ${stderr}`);
-    }
-    if (error) {
-      console.error(`Error: ${error}`);
-    }
-  });
-}
-
-function getSOC() {
-  // Make the fetch request
-  fetch("http://0.0.0.0:5000/soc")
-    .then((response) => {
-      if (response.ok) {
-        return response.json(); // Parse the JSON response
-      } else {
-        throw new Error("Something went wrong!");
-      }
-    })
+  fetch("/speed")
+    .then((response) => response.json())
     .then((data) => {
-      console.log(data); // Log the data from the response
+      document.getElementById("velocity").innerText = data.speed;
     })
-    .catch((error) => {
-      console.error(error); // Handle any errors that occur
-    });
+    .catch((error) => console.error(error));
 }
 
 // Function to update battery charge (text-wrapper-12) gradually
 function updateBatteryCharge() {
-  // Update the HTML element with the current battery charge
-  document.querySelector(".text-wrapper-12").querySelector("em").textContent =
-    getSOC();
+  fetch("/soc")
+    .then((response) => response.json())
+    .then((data) => {
+      // Update the HTML element with the current battery charge
+      document.getElementById("soc").innerText = data.soc;
+    })
+    .catch((error) => console.error(error));
 }
 
 function updateDate() {
@@ -225,12 +186,12 @@ function updateBatteryColor() {
     document.querySelector(".text-wrapper-12").querySelector("em").textContent
   );
 
-  if (currentCharge >= 90) {
-    battery_ring.src = "img/battery-ring.svg";
-  } else if (currentCharge >= 80 && currentCharge < 90) {
-    battery_ring.src = "img/battery-ring-y.svg";
+  if (currentCharge >= 75) {
+    battery_ring.src = "static/img/battery-ring.svg";
+  } else if (currentCharge >= 40 && currentCharge < 75) {
+    battery_ring.src = "static/img/battery-ring-y.svg";
   } else {
-    battery_ring.src = "img/battery-ring-r.svg";
+    battery_ring.src = "static/img/battery-ring-r.svg";
   }
 }
 
@@ -248,16 +209,16 @@ function updateRangeColor() {
     currentVelocityNumber > currentOptimalVelocity + 5 ||
     currentVelocityNumber < currentOptimalVelocity - 5
   ) {
-    range_bar.src = "img/range-bar-r.svg";
+    range_bar.src = "static/img/range-bar-r.svg";
     currentVelocity.style.color = "#ea0000";
   } else if (
     currentVelocityNumber > currentOptimalVelocity + 3 ||
     currentVelocityNumber < currentOptimalVelocity - 3
   ) {
-    range_bar.src = "img/range-bar-y.svg";
+    range_bar.src = "static/img/range-bar-y.svg";
     currentVelocity.style.color = "#ead700";
   } else {
-    range_bar.src = "img/range-bar.svg";
+    range_bar.src = "static/img/range-bar.svg";
     currentVelocity.style.color = "#01EB7B";
   }
 }
@@ -301,6 +262,6 @@ updateDate();
 setInterval(updateDate, 1000);
 setInterval(updateVelocity, 1500); // Change every second for velocity
 setInterval(updateRangeColor, 1000);
-setInterval(updateBatteryCharge, 2000); // Change every 4 seconds for battery charge
+setInterval(updateBatteryCharge, 10000); // Change every second for battery charge
 setInterval(updateBatteryColor, 10000); // Change every 4 seconds for battery charge
 setInterval(updateOptimalVelocity, 4000); // Change every 4 seconds for optimal velocity
