@@ -182,9 +182,7 @@ function updateDate() {
 
 function updateBatteryColor() {
   var battery_ring = document.querySelector(".battery-ring");
-  var currentCharge = parseInt(
-    document.querySelector(".text-wrapper-12").querySelector("em").textContent
-  );
+  var currentCharge = parseInt(document.getElementById("soc").innerText);
 
   if (currentCharge >= 75) {
     battery_ring.src = "static/img/battery-ring.svg";
@@ -262,6 +260,6 @@ updateDate();
 setInterval(updateDate, 1000);
 setInterval(updateVelocity, 1500); // Change every second for velocity
 setInterval(updateRangeColor, 1000);
-setInterval(updateBatteryCharge, 10000); // Change every second for battery charge
-setInterval(updateBatteryColor, 10000); // Change every 4 seconds for battery charge
+setInterval(updateBatteryCharge, 1000); // Change every second for battery charge
+setInterval(updateBatteryColor, 1000); // Change every 4 seconds for battery charge
 setInterval(updateOptimalVelocity, 4000); // Change every 4 seconds for optimal velocity

@@ -62,10 +62,8 @@ def hall_not_triggered():
         calculate_speed()
 
 def getSOC():
-    soc_extract.login()
     soc = soc_extract.getSOC()
-    soc_extract.exit()
-    return 
+    return soc
 
 # Assign event handlers
 hallSensor.when_pressed = hall_triggered
@@ -88,6 +86,7 @@ def soc():
 
 # Main loop
 if __name__ == "__main__":
+    soc_extract.login()
     try:
         startTime = time()  # Initialize start time
         app.run(host='0.0.0.0', port=5000)  # Run the Flask app
@@ -97,3 +96,4 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         print("Program interrupted by user")
+        soc_extract.exit()
