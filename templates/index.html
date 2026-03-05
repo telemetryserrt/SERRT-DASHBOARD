@@ -1,226 +1,333 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://pyscript.net/releases/2024.1.1/core.css"
-    />
-    <script
-      type="module"
-      src="https://pyscript.net/releases/2024.1.1/core.js"
-    ></script>
+<head>
 
-    <link rel="stylesheet" href="static/style.css" />
-    <link type="image/png" rel="icon" href="static/images/icon-race-car.png" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- ================= ESTILO MODERNO VELOCIDAD ================= -->
-    <style>
-      /* Velocidad estilo moderno */
-      #velocity {
-        font-size: 7rem;       /* número más grande */
-        font-weight: bold;
-        font-family: 'Arial', sans-serif;
-        text-align: center;    /* centrado */
-        color: green;          /* color inicial */
-      }
+<link rel="stylesheet"
+href="https://pyscript.net/releases/2024.1.1/core.css"/>
 
-      .text-wrapper-5 {        /* MPH al lado */
-        font-size: 3rem;       /* más grande también */
-        margin-left: 0.3rem;
-        color: #555;
-      }
+<script type="module"
+src="https://pyscript.net/releases/2024.1.1/core.js">
+</script>
 
-      .MPH {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+<link rel="stylesheet" href="static/style.css"/>
 
-      .overlap-3 {
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-      }
+<link type="image/png"
+rel="icon"
+href="static/images/icon-race-car.png"/>
 
-      /* Ring de batería separado y siempre rojo */
-      .battery-ring-red {
-        position: absolute; /* mantiene posición sobre la batería */
-      }
+<!-- ================= ESTILO MODERNO VELOCIDAD ================= -->
 
-      .battery-ring-red img {
-        fill: red; /* asegura que sea rojo */
-      }
-    </style>
-  </head>
-  <body>
-    <script src="static/index.js" async></script>
+<style>
 
-    <!-- ================= DASHBOARD ================= -->
-    <div class="BB-dashboard">
-      <div class="div">
-        <div class="overlap">
-          <div class="overlap-group">
-            <div class="overlap-2">
-              <div class=""> &lt;3</div>
-              <div class="top-bar">
-                <div class="overlap-group-2">
-                  <div class="hour">
-                    <div class="text-wrapper">7:30</div>
-                  </div>
-                  <div class="date">
-                    <div class="text-wrapper-2">09/27/2023</div>
-                  </div>
-                </div>
-              </div>
-              <div class="dashboard-indicators">
-                <img
-                  class="low-beam-headlights"
-                  src="static/img/low-beam-headlights.svg"
-                  style="display: none"
-                />
-                <div class="lights" style="display: none">
-                  <div class="overlap-group-3">
-                    <img class="shape" src="static/img/shape-1.svg" />
-                    <div class="text-wrapper-3">AUTO</div>
-                  </div>
-                </div>
-                <img
-                  class="parking-lights"
-                  src="static/img/shape.svg"
-                  style="display: none"
-                />
-              </div>
-            </div>
+#hour {
+  white-space: nowrap; /* AM/PM siempre al lado de la hora */
+}
 
-            <!-- ================= SPEED DISPLAY ================= -->
-            <div class="MPH">
-              <div class="overlap-3">
-                <div class="text-wrapper-4" id="velocity">0</div>
-                <div class="text-wrapper-5">MPH</div>
-                <div class="o-v-bar">
-                  <img class="range-bar" src="static/img/range-bar.svg" />
-                </div>
-              </div>
-            </div>
+/* Aplicar Arial a todo el dashboard */
+body, div, p, span {
+  font-family: 'Arial', sans-serif;
+}
 
-            <div class="right-side-analytics">
-              <div class="average-mpkW">
-                <div class="overlap-group-4">
-                  <div class="element-mpge">100 mpkW</div>
-                  <div class="text-wrapper-6">Avg. mpkW</div>
-                </div>
-                <img class="sun" src="static/img/sun.svg" />
-              </div>
+/* Velocidad estilo moderno */
+#velocity{
+  font-size:8rem;
+  font-weight:bold;
+  text-align:center;
+  color:rgb(17,173,17);
+}
 
-              <div class="optimal-velocity">
-                <div class="overlap-group-4">
-                  <div class="element-optvel"><em>34</em> mph</div>
-                  <div class="text-wrapper-6">Optimal Velociy</div>
-                </div>
-                <img
-                  class="speedometer"
-                  src="static/img/speedometer-svgrepo-com.svg"
-                />
-              </div>
+.text-wrapper-5{
+  font-size:3rem;
+  margin-left:0.05rem;
+  color:#727171;
+  font-family: 'Arial', sans-serif;
+}
 
-              <div class="range">
-                <div class="text-wrapper-7">188 mi</div>
-                <div class="text-wrapper-8">Range</div>
-                <div class="road-icon">
-                  <img class="rectangle" src="static/img/rectangle-97.svg" />
-                  <img class="rectangle-2" src="static/img/rectangle-98.svg" />
-                  <div class="rectangle-3"></div>
-                  <div class="rectangle-4"></div>
-                  <div class="rectangle-5"></div>
-                </div>
-              </div>
-            </div>
+.MPH{
+display:flex;
+justify-content:center;
+align-items:center;
+}
 
-            <img class="left-arrow" src="static/img/left-arrow.svg" />
-            <img class="right-arrow" src="static/img/right-arrow.svg" />
-          </div>
+.overlap-3{
+display:flex;
+align-items:baseline;
+justify-content:center;
+}
 
-          <img class="road" src="static/img/road.png" />
+/* Ring de batería más grande y porcentaje centrado */
+/* Contenedor de la batería */
+.battery-charge {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
 
-          <div class="overlap-4">
-            <div class="bottom-left">
-              <div class="temperature">
-                <p class="element-f">
-                  <span class="span">98 </span>
-                  <span class="text-wrapper-9">°F</span>
-                </p>
-              </div>
-              <div class="o-v">
-                <div class="text-wrapper-10"><em>34</em> mph</div>
-              </div>
-            </div>
+/* Ring de batería más grande */
+.battery-ring-red {
+  position: relative;      /* relativo para centrar % y texto */
+  width: 250px;            /* más grande */
+  height: 250px;
+  margin: 0 auto;          /* centrado horizontal */
+}
 
-            <!-- ================= BATTERY ================= -->
-            <div class="battery-charge">
-              <div class="overlap-5">
-                <div class="text-wrapper-11">Battery charge</div>
-                
-                <!-- Ring de batería separado y fijo rojo -->
-                <div class="battery-ring-red">
-                  <img src="static/img/battery-ring.svg" />
-                </div>
+/* Imagen del ring en blanco */
+.battery-ring-red img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: brightness(0) invert(1); /* blanco */
+}
 
-                <div class="text-wrapper-12" id="soc"><em>0</em>%</div>
-              </div>
-              <div class="charge">
-                <div class="rectangle-6"></div>
-                <div class="rectangle-7"></div>
-                <div class="rectangle-8"></div>
-                <div class="rectangle-9"></div>
-                <div class="rectangle-10"></div>
-                <div class="rectangle-11"></div>
-                <div class="rectangle-12"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+/* Porcentaje centrado dentro del ring */
+#soc {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  z-index: 5;
+  font-family: 'Arial', sans-serif;
+}
 
-        <!-- ================= GEAR ================= -->
-        <div class="gear-selection">
-          <div class="ready">READY</div>
-          <div class="text-wrapper-13" data-gear="R">R</div>
-          <div class="text-wrapper-14" data-gear="N">N</div>
-          <div class="text-wrapper-15" data-gear="D">D</div>
-        </div>
+/* Texto "Charge" dentro del ring, debajo del % */
+.battery-label {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  z-index: 5;
+  font-family: 'Arial', sans-serif;
+}
+</style>
+</head>
 
-    <!-- ================= LIVE TELEMETRY SCRIPT ================= -->
-    <script>
-      const optimalSpeed = 34; // velocidad óptima
+<script>
+// Hora y fecha en tiempo real, 12h con AM/PM al lado
+function updateClock() {
+    const now = new Date();
 
-      function getDirectColor(speed) {
-          const deviation = Math.abs(speed - optimalSpeed);
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // si es 0, poner 12
+    hours = hours.toString().padStart(2, '0');
+    minutes = minutes.toString().padStart(2, '0');
 
-          if (deviation <= 5) {
-              return 'green';   // cerca del óptimo
-          } else if (deviation <= 10) {
-              return 'yellow';  // un poco lejos
-          } else {
-              return 'red';     // muy lejos
-          }
-      }
+    document.getElementById('hour').innerText = `${hours}:${minutes} ${ampm}`;
 
-      function updateTelemetry() {
-          // Arduino MPH
-          fetch('/arduino_speed')
-            .then(r => r.json())
-            .then(d => {
-              const speed = parseInt(d.speed); // número entero
-              const velEl = document.getElementById("velocity");
-              velEl.innerText = speed;         // muestra MPH
-              velEl.style.color = getDirectColor(speed); // color estático según velocidad
-            });
+    let month = (now.getMonth() + 1).toString().padStart(2, '0');
+    let day = now.getDate().toString().padStart(2, '0');
+    let year = now.getFullYear();
+
+    document.getElementById('date').innerText = `${month}/${day}/${year}`;
+}
+
+// Actualizar cada segundo
+setInterval(updateClock, 1000);
+updateClock(); // llamada inmediata al cargar
+</script>
+
+<body>
+
+<script src="static/index.js" async></script>
+
+<!-- ================= DASHBOARD ================= -->
+
+<div class="BB-dashboard">
+
+<div class="div">
+
+<div class="overlap">
+
+<div class="overlap-group">
+
+<div class="overlap-2">
+
+<div>&lt;3</div>
+
+<div class="top-bar">
+
+<div class="overlap-group-2">
+
+<div class="hour">
+  <div class="text-wrapper" id="hour">--:--</div>
+</div>
+
+<div class="date">
+  <div class="text-wrapper-2" id="date">--/--/----</div>
+</div>
+
+</div>
+</div>
+
+<div class="dashboard-indicators">
+
+<img class="low-beam-headlights"
+src="static/img/low-beam-headlights.svg"
+style="display:none"/>
+
+<div class="lights" style="display:none">
+
+<div class="overlap-group-3">
+<img class="shape" src="static/img/shape-1.svg"/>
+<div class="text-wrapper-3">AUTO</div>
+</div>
+
+</div>
+
+<img class="parking-lights"
+src="static/img/shape.svg"
+style="display:none"/>
+
+</div>
+</div>
+
+<!-- ================= SPEED DISPLAY ================= -->
+
+<div class="MPH">
+
+<div class="overlap-3">
+
+<div class="text-wrapper-4" id="velocity">0</div>
+
+<div class="text-wrapper-5">MPH</div>
+
+<div class="o-v-bar">
+<img class="range-bar" src="static/img/range-bar.svg"/>
+</div>
+
+</div>
+</div>
+
+<img class="road" src="static/img/road.png"/>
+
+<div class="overlap-4">
+
+<div class="bottom-left">
+
+<div class="temperature">
+<p class="element-f">
+<span class="span">98</span>
+<span class="text-wrapper-9">°F</span>
+</p>
+</div>
+
+<div class="o-v">
+<div class="text-wrapper-10"><em>34</em> mph</div>
+</div>
+
+</div>
+
+<!-- ================= BATTERY ================= -->
+
+<div class="battery-charge">
+
+  <!-- Ring de batería más grande con % y texto dentro -->
+  <div class="battery-ring-red">
+    <img src="static/img/battery-ring.svg"/>
+    
+    <!-- Porcentaje centrado dentro del ring -->
+    <div id="soc">0%</div>
+    
+    <!-- Texto "Charge" dentro del ring -->
+    <div class="battery-label">Charge</div>
+  </div>
+
+</div>
+
+<div class="charge">
+
+<div class="rectangle-6"></div>
+<div class="rectangle-7"></div>
+<div class="rectangle-8"></div>
+<div class="rectangle-9"></div>
+<div class="rectangle-10"></div>
+<div class="rectangle-11"></div>
+<div class="rectangle-12"></div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+<!-- ================= LIVE TELEMETRY SCRIPT ================= -->
+
+<script>
+
+const optimalSpeed = 34;
+
+function getDirectColor(speed){
+
+const deviation = Math.abs(speed - optimalSpeed);
+
+if(deviation <= 2){
+return 'green';
+}
+else if(deviation <= 7){
+return 'yellow';
+}
+else{
+return 'red';
+}
+
+}
+
+function updateTelemetry(){
+
+/* Arduino MPH */
+
+fetch('/arduino_speed')
+.then(r=>r.json())
+.then(d=>{
+
+const speed=parseInt(d.speed);
+
+const velEl=document.getElementById("velocity");
+
+velEl.innerText=speed;
+
+velEl.style.color=getDirectColor(speed);
+
+});
 
           // SOC
           fetch('/soc')
             .then(r => r.json())
             .then(d => {
-              document.getElementById("soc").innerHTML = "<em>" + d.soc + "</em>%";
+              const soc = parseInt(d.soc);
+const socEl = document.getElementById("soc");
+const ring = document.querySelector(".battery-ring-red img");
+
+socEl.innerText = soc + "%";
+
+/* Cambiar color del ring según SOC */
+const labelEl = document.querySelector(".battery-label");
+
+if(soc <= 20){
+  ring.style.filter = "invert(16%) sepia(94%) saturate(7494%) hue-rotate(358deg) brightness(92%) contrast(118%)"; // rojo
+  socEl.style.color = "red";
+  labelEl.style.color = "red";
+} else {
+  ring.style.filter = "brightness(0) invert(1)"; // blanco
+  socEl.style.color = "white";
+  labelEl.style.color = "white";
+}
             });
       }
 
