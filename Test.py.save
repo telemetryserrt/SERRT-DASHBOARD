@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+hallSensor = Button(26, pull_up=True, bounce_time=0.01)from flask import Flask, jsonify, render_template
 from gpiozero import LED, Button
 from time import time, sleep
 from Speed import soc_extract
@@ -14,7 +14,7 @@ app.config['UPLOAD_FOLDER'] = IMG_FOLDER
 # Pin definitions
 ledPos = LED(6)
 ledNeg = LED(22)
-# hallSensor = Button(26, pull_up=True, bounce_time=0.01)  # Hall effect sensor pin
+hallSensor = Button(26, pull_up=True)  # Hall effect sensor pin
 
 # =========================
 # Variables
@@ -84,8 +84,8 @@ def hall_not_triggered():
         calculate_speed()
 
 
-#hallSensor.when_pressed = hall_triggered
-#hallSensor.when_released = hall_not_triggered
+hallSensor.when_pressed = hall_triggered
+hallSensor.when_released = hall_not_triggered
 
 # =========================
 # SOC

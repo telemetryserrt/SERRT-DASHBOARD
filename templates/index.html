@@ -67,6 +67,40 @@ justify-content:center;
   margin-top: 20px;
 }
 
+/* Iconos de fallas encima del ring */
+
+.battery-faults{
+position:absolute;
+top:-40px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:12px;
+}
+
+.fault-icon{
+display:none;
+flex-direction:column;
+align-items:center;
+gap:4px;
+color:rgb(255, 191, 0);
+font-size:1.2rem;
+font-weight:bold;
+}
+
+.fault-symbol{
+width:70px;
+height:70px;
+filter: grayscale(100%);
+opacity:0.4;
+}
+
+.fault-text{
+font-size:1rem;
+font-weight:bold;
+color:orange;
+}
+
 /* Ring de batería más grande */
 .battery-ring-red {
   position: relative;      /* relativo para centrar % y texto */
@@ -234,6 +268,23 @@ style="display:none"/>
 <!-- ================= BATTERY ================= -->
 
 <div class="battery-charge">
+  <!-- Indicadores de fallas -->
+<div class="battery-faults">
+
+<div id="fault-voltage" class="fault-icon">
+<img src="/static/fault_images/battery-voltage-warning.svg" class="fault-symbol">
+<span class="fault-text" id="voltage-text"></span>
+</div>
+
+<div id="fault-current" class="fault-icon">
+<img src="/static/fault_images/electrical-current-warning.svg" class="fault-symbol">
+</div>
+
+<div id="fault-temp" class="fault-icon">
+<img src="/static/fault_images/battery-temperature-warning.svg" class="fault-symbol">
+</div>
+
+</div>
 
   <!-- Ring de batería más grande con % y texto dentro -->
   <div class="battery-ring-red">
@@ -285,7 +336,67 @@ return 'yellow';
 else{
 return 'red';
 }
+}
 
+function updateFaults(data){
+
+const voltageIcon = document.getElementById("fault-voltage");
+const voltageText = document.getElementById("voltage-text");
+
+/* LOW or OVER voltage */
+
+if(data.low_voltage){
+
+voltageIcon.style.display = "flex";
+voltageIcon.querySelector("img").style.filter =
+"invert(48%) sepia(88%) saturate(1900%) hue-rotate(360deg) brightness(105%) contrast(101%)";
+voltageText.innerText = "UNDER";
+
+}
+else if(data.over_voltage){
+
+voltageIcon.style.display = "flex";
+voltageIcon.querySelector("img").style.filter =
+"invert(48%) sepia(88%) saturate(1900%) hue-rotate(360deg) brightness(105%) contrast(101%)";
+voltageText.innerText = "OVER";
+
+}
+else{
+
+voltageIcon.style.display = "none";
+
+}
+
+const ring = document.querySelector(".battery-ring-red img");
+
+if(data.low_voltage || data.over_voltage){
+ring.style.filter =
+"invert(48%) sepia(88%) saturate(1900%) hue-rotate(360deg) brightness(105%) contrast(101%)";
+}
+
+/* Current */
+
+const currentIcon = document.getElementById("fault-current");
+
+if(data.over_current){
+currentIcon.style.display = "flex";
+currentIcon.querySelector("img").style.filter =
+"invert(48%) sepia(88%) saturate(1900%) hue-rotate(360deg)";
+}else{
+currentIcon.style.display = "none";
+}
+
+/* Temperature */
+
+const tempIcon = document.getElementById("fault-temp");
+
+if(data.over_temp){
+tempIcon.style.display = "flex";
+tempIcon.querySelector("img").style.filter =
+"invert(48%) sepia(88%) saturate(1900%) hue-rotate(360deg)";
+}else{
+tempIcon.style.display = "none";
+}
 }
 
 function updateTelemetry(){
@@ -306,71 +417,52 @@ velEl.style.color=getDirectColor(speed);
 
 });
 
-          // SOC
-          fetch('/soc')
-            .then(r => r.json())
-            .then(d => {
-              const soc = parseInt(d.soc);
+         // SOC
+fetch('/soc')
+.then(r => r.json())
+.then(d => {
+
+const soc = parseInt(d.soc);
 const socEl = document.getElementById("soc");
 const ring = document.querySelector(".battery-ring-red img");
+const labelEl = document.querySelector(".battery-label");
 
 socEl.innerText = soc + "%";
 
 /* Cambiar color del ring según SOC */
-const labelEl = document.querySelector(".battery-label");
 
 if(soc <= 20){
-  ring.style.filter = "invert(16%) sepia(94%) saturate(7494%) hue-rotate(358deg) brightness(92%) contrast(118%)"; // rojo
-  socEl.style.color = "red";
-  labelEl.style.color = "red";
-} else {
-  ring.style.filter = "brightness(0) invert(1)"; // blanco
-  socEl.style.color = "white";
-  labelEl.style.color = "white";
+
+ring.style.filter =
+"invert(16%) sepia(94%) saturate(7494%) hue-rotate(358deg) brightness(92%) contrast(118%)";
+
+socEl.style.color = "red";
+labelEl.style.color = "red";
+
+}else{
+
+ring.style.filter = "brightness(0) invert(1)";
+socEl.style.color = "white";
+labelEl.style.color = "white";
+
 }
-            });
-      }
+
+});
+ 
+// FAULTS
+fetch('/faults')
+.then(r=>r.json())
+.then(d=>{
+updateFaults(d);
+});
+
+}
 
       // 5Hz real-time telemetry
       setInterval(updateTelemetry, 500);
 
-      // Configurar gráfico
-      const ctx = document.getElementById('arduinoChart').getContext('2d');
-      let speedData = [];
-      let labels = [];
-      const maxPoints = 50; // cantidad máxima de puntos a mostrar
 
-      const arduinoChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-              labels: labels,
-              datasets: [{
-                  label: 'Arduino Speed (m/s)',
-                  data: speedData,
-                  borderColor: 'rgb(0, 255, 204)',
-                  backgroundColor: 'rgba(0,255,204,0.2)',
-                  tension: 0.3
-              }]
-          },
-          options: {
-              animation: { duration: 0 },
-              scales: {
-                  x: { title: { display: true, text: 'Tiempo' } },
-                  y: { min: 0, title: { display: true, text: 'm/s' } }
-              }
-          }
-      });
 
-      function updateChart(speed){
-          const now = new Date().toLocaleTimeString();
-          labels.push(now);
-          speedData.push(speed);
-          if(labels.length > maxPoints){
-              labels.shift();
-              speedData.shift();
-          }
-          arduinoChart.update();
-      }
     </script>
   </body>
 </html>
